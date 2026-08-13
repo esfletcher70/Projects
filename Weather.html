@@ -1,0 +1,295 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Dashboard</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <div id="root"></div>
+  
+  <script type="text/babel">
+    function WeatherDashboard() {
+      const [weather, setWeather] = React.useState(null);
+      const [locationName, setLocationName] = React.useState('Detecting location...');
+      const [searchText, setSearchText] = React.useState('');
+      const [error, setError] = React.useState('');
+      const [loading, setLoading] = React.useState(false);
+      const [units, setUnits] = React.useState('imperial');
+
+      React.useEffect(() => {
+        loadWeatherFromCurrentLocation();
+      }, []);
+
+
+  function loadWeatherFromCurrentLocation() {
+    setError('');
+    setLocationName('Detecting location...');
+
+
+    if (!navigator.geolocation) {
+      setError('Geolocation is not supported by this browser. Use the search box instead.');
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+        await loadWeather(latitude, longitude);
+      },
+      () => {
+        setError('Unable to determine your location. Use the search box to enter a city and state.');
+      }
+    );
+  }
+  async function loadWeather(lat, lon, searchedLocationName = '') {
+    try {
+      setLoading(true);
+      setError('');
+      const weatherResponse = await fetch(
+        `/api/weather?lat=${lat}&lon=${lon}`
+      );
+
+      const weatherData = await weatherResponse.json();
+
+      if (!weatherResponse.ok) {
+        throw new Error(weatherData?.message || 'Unable to retrieve weather data.');
+      }
+
+
+      if (searchedLocationName) {
+        setLocationName(searchedLocationName);
+      } else {
+        const geoResponse = await fetch(
+          `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${OPENWEATHER_API_KEY}`
+        );
+
+
+        const geoData = await geoResponse.json();
+
+
+        if (geoData?.length) {
+          const city = geoData[0].name || '';
+          const state = geoData[0].state || '';
+          const country = geoData[0].country || '';
+          setLocationName([city, state || country].filter(Boolean).join(', '));
+        }
+      }
+
+
+      setWeather(weatherData);
+    } catch (err) {
+      setError(err.message || 'Failed to retrieve weather data.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+
+  async function handleSearch(event) {
+    event.preventDefault();
+
+
+    const query = searchText.trim();
+
+
+    if (!query) {
+      setError('Enter a city and state, such as Los Angeles, CA.');
+      return;
+    }
+
+
+    try {
+      setLoading(true);
+      setError('');
+
+
+      const geoResponse = await fetch(
+        `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(query)}&limit=1&appid=${OPENWEATHER_API_KEY}`
+      );
+
+      const geoData = await geoResponse.json();
+
+      if (!geoResponse.ok) {
+        throw new Error(geoData?.message || 'Unable to search for that location.');
+      }
+
+      if (!geoData?.length) {
+        throw new Error('Location not found. Try a format like City, State.');
+      }
+
+
+      const location = geoData[0];
+      const displayName = [
+        location.name,
+        location.state || location.country
+      ].filter(Boolean).join(', ');
+
+
+      await loadWeather(location.lat, location.lon, displayName);
+    } catch (err) {
+      setError(err.message || 'Search failed. Please try another city and state.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const formatTime = (unixTime, timezone) => {
+    if (!unixTime) return '--';
+
+
+    return new Intl.DateTimeFormat(undefined, {
+      hour: 'numeric',
+      minute: '2-digit',
+      timeZone: timezone
+    }).format(new Date(unixTime * 1000));
+  };
+
+  const getWeatherIconUrl = (iconCode) => {
+    if (!iconCode) return '';
+    return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+  };
+  const currentIcon = weather?.current?.weather?.[0]?.icon;
+  const currentDescription = weather?.current?.weather?.[0]?.description || 'Current weather';
+
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 to-sky-500 p-8 text-white">
+      <div className="max-w-5xl mx-auto bg-white/10 backdrop-blur-md rounded-3xl p-8 shadow-xl">
+        <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+          <div>
+            <h1 className="text-4xl font-bold mb-2">Weather Dashboard</h1>
+            <p className="text-lg opacity-90">Current weather for your location or searched city</p>
+          </div>
+          <button
+            onClick={loadWeatherFromCurrentLocation}
+            className="rounded-2xl bg-white/20 px-4 py-3 text-sm font-semibold shadow hover:bg-white/30"
+          >
+            Use My Location
+          </button>
+        </div>
+        <form onSubmit={handleSearch} className="mt-6 flex flex-col gap-3 md:flex-row">
+          <input
+            value={searchText}
+            onChange={(event) => setSearchText(event.target.value)}
+            placeholder="Search city/state, example: Los Angeles, CA"
+            className="w-full rounded-2xl border border-white/20 bg-white/90 px-4 py-3 text-slate-900 placeholder:text-slate-500 focus:outline-none focus:ring-4 focus:ring-white/30"
+          />
+          <button
+            type="submit"
+            className="rounded-2xl bg-white px-6 py-3 font-semibold text-blue-900 shadow hover:bg-blue-50"
+          >
+            Search
+          </button>
+        </form>
+
+
+        {loading && <p className="mt-5 text-blue-50">Loading weather...</p>}
+        {error && <p className="mt-5 rounded-2xl bg-red-500/20 p-4 text-red-100">{error}</p>}
+
+
+        {weather && (
+          <div className="mt-8 space-y-6">
+            <div className="flex flex-col gap-4 rounded-3xl bg-white/10 p-5 md:flex-row md:items-center md:justify-between">
+              <div>
+                <h2 className="text-3xl font-semibold">{locationName}</h2>
+                <p className="capitalize opacity-85">{currentDescription}</p>
+              </div>
+
+
+              {currentIcon && (
+                <img
+                  src={getWeatherIconUrl(currentIcon)}
+                  alt={currentDescription}
+                  className="h-24 w-24 rounded-3xl bg-white/10"
+                />
+              )}
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+              <div className="bg-white/10 rounded-2xl p-4">
+                <div className="text-sm opacity-80">Temperature</div>
+                <div className="text-3xl font-bold">{Math.round(weather.current.temp)}°F</div>
+              </div>
+
+              <div className="bg-white/10 rounded-2xl p-4">
+                <div className="text-sm opacity-80">Feels Like</div>
+                <div className="text-3xl font-bold">{Math.round(weather.current.feels_like)}°F</div>
+              </div>
+
+              <div className="bg-white/10 rounded-2xl p-4">
+                <div className="text-sm opacity-80">Humidity</div>
+                <div className="text-3xl font-bold">{weather.current.humidity}%</div>
+              </div>
+
+              <div className="bg-white/10 rounded-2xl p-4">
+                <div className="text-sm opacity-80">Sunrise</div>
+                <div className="text-2xl font-bold">
+                  {formatTime(weather.current.sunrise, weather.timezone)}
+                </div>
+              </div>
+
+              <div className="bg-white/10 rounded-2xl p-4">
+                <div className="text-sm opacity-80">Sunset</div>
+                <div className="text-2xl font-bold">
+                  {formatTime(weather.current.sunset, weather.timezone)}
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white/10 rounded-2xl p-4">
+              <h3 className="font-semibold text-xl mb-4">7-Day Forecast</h3>
+              <div className="grid grid-cols-2 gap-3 md:grid-cols-7">
+                {weather.daily.slice(0, 7).map((day, index) => {
+                  const dayIcon = day.weather?.[0]?.icon;
+                  const dayDescription = day.weather?.[0]?.description || day.weather?.[0]?.main || 'Forecast';
+
+
+                  return (
+                    <div key={index} className="bg-white/10 rounded-xl p-3 text-center">
+                      <div className="text-xs font-semibold opacity-90">
+                        {new Intl.DateTimeFormat(undefined, {
+                          weekday: 'short',
+                          timeZone: weather.timezone
+                        }).format(new Date(day.dt * 1000))}
+                      </div>
+
+
+                      {dayIcon && (
+                        <img
+                          src={getWeatherIconUrl(dayIcon)}
+                          alt={dayDescription}
+                          className="mx-auto h-14 w-14"
+                        />
+                      )}
+
+
+                      <div className="font-bold">{Math.round(day.temp.max)}°</div>
+                      <div className="text-xs opacity-80 capitalize">{dayDescription}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="mt-6 text-sm opacity-80">
+          Replace YOUR_OPENWEATHER_API_KEY with your OpenWeather API key.
+        </div>
+      </div>
+    </div>
+  );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<WeatherDashboard />);
+  </script>
+</body>
+</html>

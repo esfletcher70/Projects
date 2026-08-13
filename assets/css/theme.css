@@ -1,0 +1,253 @@
+/* ============================================
+   AppHub shared theme
+   Shared design tokens + component styles
+   ============================================ */
+
+:root {
+    --primary: #667eea;
+    --secondary: #764ba2;
+    --accent: #f093fb;
+    --dark: #1e1e1e;
+    --light: #ffffff;
+    --gray-light: #f8f9fa;
+    --gray-dark: #2d2d2d;
+    --panel: #2d2d2d;
+    --border: #3d3d3d;
+    --text-muted: #a0aec0;
+    --text-dim: #718096;
+    --success: #48bb78;
+    --success-dark: #38a169;
+    --danger: #f56565;
+    --danger-dark: #e53e3e;
+    --error-bg: #fed7d7;
+    --error-text: #c53030;
+    --success-bg: #c6f6d5;
+    --success-text: #22543d;
+    --shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+}
+
+/* Container */
+.container {
+    background: var(--dark);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: var(--shadow);
+}
+
+h1 {
+    color: var(--light);
+    text-align: center;
+}
+
+.subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+}
+
+/* Forms */
+label {
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+input[type="number"] {
+    padding: 12px;
+    background: var(--panel);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    color: var(--light);
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.unit-label {
+    color: var(--text-dim);
+    font-weight: 600;
+}
+
+/* Buttons */
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    flex: 1;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+/* Alerts */
+.error {
+    background: var(--error-bg);
+    border: 2px solid var(--danger);
+    color: var(--error-text);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: none;
+}
+
+.error.show {
+    display: block;
+}
+
+.success {
+    background: var(--success-bg);
+    border: 2px solid var(--success);
+    color: var(--success-text);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: none;
+}
+
+.success.show {
+    display: block;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: var(--dark);
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 2px solid var(--border);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    color: var(--light);
+    font-size: 1.5em;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+}
+
+.close-btn:hover {
+    color: var(--light);
+}
+
+.embed-option {
+    margin-bottom: 20px;
+}
+
+.embed-option label {
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    display: block;
+    font-weight: 600;
+}
+
+.embed-code {
+    background: var(--panel);
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid var(--border);
+    color: var(--success);
+    font-family: 'Courier New', monospace;
+    font-size: 0.85em;
+    word-break: break-all;
+    max-height: 120px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+.copy-btn,
+.copy-embed-btn {
+    width: 100%;
+    padding: 10px;
+    background: var(--primary);
+    color: var(--light);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+    margin-top: 10px;
+}
+
+.copy-btn:hover,
+.copy-embed-btn:hover {
+    background: #5568d3;
+}
+
+.copy-btn.copied,
+.copy-embed-btn.copied {
+    background: var(--success);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+}

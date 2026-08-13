@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AppHub - Your Essential Tools</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --dark: #1e1e1e;
+            --light: #ffffff;
+            --gray-light: #f8f9fa;
+            --gray-dark: #2d2d2d;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --shadow-hover: 0 20px 50px rgba(102, 126, 234, 0.3);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--gray-light);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--light);
+            padding: 60px 20px 40px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .tagline {
+            font-size: 1.2em;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--dark);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0;
+        }
+
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            padding: 12px 20px;
+            display: block;
+            transition: background 0.3s, color 0.3s;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            background: var(--primary);
+            color: var(--light);
+        }
+
+        /* Main Container */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        /* Card Styling */
+        .card {
+            background: var(--light);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-icon {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--light);
+            font-size: 3.5em;
+            padding: 30px;
+            text-align: center;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card h2 {
+            font-size: 1.6em;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+
+        .card p {
+            color: #666;
+            margin-bottom: 25px;
+            flex: 1;
+        }
+
+        .card-button {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--light);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .card-button:active {
+            transform: scale(0.98);
+        }
+
+        /* Features Section */
+        .features-section {
+            background: var(--dark);
+            color: var(--light);
+            padding: 50px 20px;
+            border-radius: 15px;
+            margin-top: 60px;
+        }
+
+        .features-section h2 {
+            font-size: 2.2em;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .feature {
+            padding: 20px;
+            background: var(--gray-dark);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .feature h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--light);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 0;
+            border-top: 2px solid var(--primary);
+        }
+
+        footer p {
+            margin: 0;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .tagline {
+                font-size: 1em;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0;
+            }
+
+            nav ul {
+                gap: 0;
+            }
+
+            nav a {
+                padding: 10px 15px;
+                font-size: 0.9em;
+            }
+
+            main {
+                padding: 40px 15px;
+            }
+
+            .card-icon {
+                font-size: 2.5em;
+                min-height: 120px;
+            }
+
+            header {
+                padding: 40px 20px 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.6em;
+            }
+
+            .tagline {
+                font-size: 0.95em;
+            }
+
+            .cards-grid {
+                gap: 15px;
+            }
+
+            .card-content {
+                padding: 20px;
+            }
+
+            .card h2 {
+                font-size: 1.3em;
+            }
+
+            nav a {
+                padding: 8px 12px;
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>🚀 AppHub</h1>
+        <p class="tagline">Your collection of powerful, easy-to-use tools for everyday tasks</p>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#apps">Apps</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#contact">About</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <section id="apps">
+            <div class="cards-grid">
+                <!-- Calculator Card -->
+                <div class="card">
+                    <div class="card-icon">🧮</div>
+                    <div class="card-content">
+                        <h2>Basic Calculator</h2>
+                        <p>Perform quick mathematical calculations with a simple and intuitive interface. Handle basic arithmetic operations in seconds.</p>
+                        <a href="Calculator.html" class="card-button">Open Calculator</a>
+                    </div>
+                </div>
+
+                <!-- BMI Calculator Card -->
+                <div class="card">
+                    <div class="card-icon">⚖️</div>
+                    <div class="card-content">
+                        <h2>BMI Calculator</h2>
+                        <p>Calculate your Body Mass Index in metric or imperial units. Get instant health insights based on your measurements.</p>
+                        <a href="Calculator-BMI.html" class="card-button">Calculate BMI</a>
+                    </div>
+                </div>
+
+                <!-- Mortgage Calculator Card -->
+                <div class="card">
+                    <div class="card-icon">🏠</div>
+                    <div class="card-content">
+                        <h2>Mortgage Calculator</h2>
+                        <p>Plan your home purchase with accurate mortgage calculations. Visualize payments and understand your financial commitment.</p>
+                        <a href="Calculator-Mortgage.html" class="card-button">Calculate Mortgage</a>
+                    </div>
+                </div>
+
+                <!-- Retirement Calculator Card -->
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-content">
+                        <h2>Retirement Calculator</h2>
+                        <p>Plan your retirement with detailed projections. Calculate how much you need to save to achieve your retirement goals.</p>
+                        <a href="Calculator-Retirement.html" class="card-button">Plan Retirement</a>
+                    </div>
+                </div>
+
+                <!-- Image Compression Card -->
+                <div class="card">
+                    <div class="card-icon">🖼️</div>
+                    <div class="card-content">
+                        <h2>Image Compression</h2>
+                        <p>Reduce image file sizes while maintaining quality. Perfect for faster uploads and web optimization.</p>
+                        <a href="Image-Compression.html" class="card-button">Compress Images</a>
+                    </div>
+                </div>
+
+                <!-- Weather Card -->
+                <div class="card">
+                    <div class="card-icon">🌤️</div>
+                    <div class="card-content">
+                        <h2>Weather Dashboard</h2>
+                        <p>Check real-time weather conditions for any location. Get forecasts and atmospheric insights instantly.</p>
+                        <a href="Weather.html" class="card-button">Check Weather</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features-section">
+            <h2>Why Choose AppHub?</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <h3>⚡ Fast & Responsive</h3>
+                    <p>All tools load instantly and work seamlessly on any device. No waiting, just results.</p>
+                </div>
+                <div class="feature">
+                    <h3>🎯 Precise Calculations</h3>
+                    <p>Get accurate results with advanced algorithms and real-time processing for all computations.</p>
+                </div>
+                <div class="feature">
+                    <h3>📱 Mobile Friendly</h3>
+                    <p>Works perfectly on phones, tablets, and desktops. Access your tools anywhere, anytime.</p>
+                </div>
+                <div class="feature">
+                    <h3>🔒 Privacy First</h3>
+                    <p>Your data stays on your device. No tracking, no storage, completely private usage.</p>
+                </div>
+                <div class="feature">
+                    <h3>🎨 Beautiful Design</h3>
+                    <p>Modern, intuitive interfaces make complex tasks feel effortless and enjoyable.</p>
+                </div>
+                <div class="feature">
+                    <h3>⌚ Always Free</h3>
+                    <p>Access all tools without any cost or hidden fees. Forever free for everyone.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <p>&copy; 2024 AppHub. All rights reserved. Built with ❤️ for productivity.</p>
+    </footer>
+</body>
+</html>
