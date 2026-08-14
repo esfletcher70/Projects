@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls *)",
+      "Bash(sed *)",
+      "Bash(command *)",
+      "Bash($t *)",
+      "Bash(python3 *)",
+      "Bash(python3 scripts/validate.py *)",
+      "Bash(pip3 install *)",
+      "Bash(ruff *)",
+      "Bash(tail *)",
+      "Bash(grep *)",
+      "Bash(cat *)"
+    ]
+  }
+}
