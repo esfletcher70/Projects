@@ -15,7 +15,9 @@
       "Bash(npm ping 2>& *)",
       "Bash(brew *)",
       "Bash(export *)",
-      "Bash(find *)"
+      "Bash(find *)",
+      "Bash(opencode *)",
+      "Bash(git commit *)"
     ]
   }
 }
