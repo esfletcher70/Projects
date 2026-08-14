@@ -4,9 +4,13 @@
   "private": true,
   "description": "AppHub static site + Python proxy server",
   "scripts": {
-    "lint": "eslint assets/js/*.js"
+    "lint": "eslint assets/js/*.js",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:report": "playwright show-report"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.1",
     "eslint": "^8.57.0"
   }
 }

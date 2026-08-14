@@ -7,5 +7,9 @@ __pycache__/
 node_modules/
 package-lock.json
 
+# Playwright
+test-results/
+playwright-report/
+
 # Secrets
 server/.env

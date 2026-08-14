@@ -11,7 +11,9 @@
       "Bash(ruff *)",
       "Bash(tail *)",
       "Bash(grep *)",
-      "Bash(cat *)"
+      "Bash(cat *)",
+      "Bash(npm ping 2>& *)",
+      "Bash(brew *)"
     ]
   }
 }
