@@ -7,19 +7,17 @@ import { showError, hideError, qs } from '../common.js';
 export function mount(container, options = {}) {
     const mode = options.mode || 'card';
     const forecastDays = mode === 'card' ? 3 : 7;
-    const showLocationButton = mode === 'standalone';
 
     container.innerHTML = `
         <div id="error" class="error"></div>
         <div class="tool-section">
             <div class="weather-search" data-search>
-                <input type="text" id="searchInput" data-search-input placeholder="Search city/state, example: Los Angeles, CA" aria-label="Search city or state">
+                <input type="text" id="searchInput" data-search-input placeholder="Search city, state, or country" aria-label="Search city, state, or country">
                 <button class="tool-btn primary" id="searchBtn" data-search-btn>Search</button>
             </div>
-            ${showLocationButton ? `
             <div class="button-group" style="margin-bottom: 12px;">
                 <button class="tool-btn secondary" id="locationBtn" data-location-btn>Use My Location</button>
-            </div>` : ''}
+            </div>
             <div id="loading" style="display: none; margin-bottom: 12px;">Loading weather...</div>
             <div id="weatherContent" data-weather-content></div>
         </div>
@@ -102,10 +100,26 @@ export function mount(container, options = {}) {
         );
     }
 
+    async function geocode(query) {
+        const response = await fetch(`/api/geo/direct?q=${encodeURIComponent(query)}&limit=5`);
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error(data?.message || 'Unable to search for that location.');
+        }
+        return data || [];
+    }
+
+    function pickLocation(locations) {
+        if (!locations?.length) return null;
+        // Prefer an exact name match in the US, otherwise return the first result.
+        const usLocation = locations.find((loc) => loc.country === 'US');
+        return usLocation || locations[0];
+    }
+
     async function handleSearch() {
         const query = searchInput.value.trim();
         if (!query) {
-            showError('Enter a city and state, such as Los Angeles, CA.', container);
+            showError('Enter a city, state, or country, such as Daly City, CA.', container);
             return;
         }
 
@@ -113,17 +127,18 @@ export function mount(container, options = {}) {
             setLoading(true);
             hideError(container);
 
-            const geoResponse = await fetch(`/api/geo/direct?q=${encodeURIComponent(query)}&limit=1`);
-            const geoData = await geoResponse.json();
+            let locations = await geocode(query);
 
-            if (!geoResponse.ok) {
-                throw new Error(geoData?.message || 'Unable to search for that location.');
-            }
-            if (!geoData?.length) {
-                throw new Error('Location not found. Try a format like City, State.');
+            // Fallback: if the user typed a city without a country, try adding the US qualifier.
+            if (!locations.length && !query.includes(',')) {
+                locations = await geocode(`${query},US`);
             }
 
-            const location = geoData[0];
+            const location = pickLocation(locations);
+            if (!location) {
+                throw new Error('Location not found. Try a format like City, State or City, Country.');
+            }
+
             const displayName = [location.name, location.state || location.country].filter(Boolean).join(', ');
             await loadWeather(location.lat, location.lon, displayName);
         } catch (err) {

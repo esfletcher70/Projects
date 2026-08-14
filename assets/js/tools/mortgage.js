@@ -8,7 +8,7 @@ export function mount(container) {
     container.innerHTML = `
         <div id="error" class="error"></div>
         <div class="tool-section">
-            <div class="tool-form compact-2">
+            <div class="tool-form compact-2 mortgage-form">
                 <div class="form-group">
                     <label for="homePrice">Home Price</label>
                     <input type="number" id="homePrice" data-price placeholder="300000" value="300000" step="1000" min="0">
@@ -26,7 +26,7 @@ export function mount(container) {
                     <input type="number" id="loanTerm" data-term placeholder="30" value="30" step="1" min="1" max="50">
                 </div>
             </div>
-            <div class="form-group" style="margin-top: 12px;">
+            <div class="form-group mortgage-loan" style="margin-top: 12px;">
                 <label>Loan Amount</label>
                 <input type="number" id="loanAmount" data-loan-amount readonly value="240000">
             </div>

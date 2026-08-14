@@ -149,6 +149,78 @@
     min-width: 40px;
 }
 
+/* Compact BMI form: smaller fields so weight and height fit side by side */
+.tool-form.bmi-form {
+    gap: 8px;
+}
+
+.tool-form.bmi-form .form-group {
+    min-width: 0;
+}
+
+.tool-form.bmi-form input[type="number"] {
+    padding: 6px 8px;
+    font-size: 0.9em;
+    min-width: 0;
+    width: 100%;
+}
+
+.tool-form.bmi-form .input-wrapper {
+    gap: 4px;
+}
+
+.tool-form.bmi-form .unit-label {
+    font-size: 0.8em;
+    min-width: 0;
+    white-space: nowrap;
+}
+
+/* Compact mortgage form: smaller fields so the 2x2 grid fits in the card */
+.tool-form.mortgage-form {
+    gap: 8px;
+}
+
+.tool-form.mortgage-form .form-group {
+    min-width: 0;
+}
+
+.tool-form.mortgage-form input[type="number"] {
+    padding: 6px 8px;
+    font-size: 0.9em;
+    min-width: 0;
+    width: 100%;
+}
+
+.tool-form.mortgage-form label {
+    font-size: 0.8em;
+}
+
+.mortgage-loan input[type="number"] {
+    padding: 6px 8px;
+    font-size: 0.9em;
+    width: 100%;
+}
+
+/* Compact retirement form: smaller fields so the 2x3 grid fits in the card */
+.tool-form.retirement-form {
+    gap: 8px;
+}
+
+.tool-form.retirement-form .form-group {
+    min-width: 0;
+}
+
+.tool-form.retirement-form input[type="number"] {
+    padding: 6px 8px;
+    font-size: 0.9em;
+    min-width: 0;
+    width: 100%;
+}
+
+.tool-form.retirement-form label {
+    font-size: 0.8em;
+}
+
 /* Buttons */
 .tool-btn {
     padding: 10px 16px;
@@ -484,7 +556,7 @@
 
 .weather-details {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 8px;
     margin-bottom: 12px;
 }
@@ -492,20 +564,24 @@
 .weather-detail {
     background: #f8f9fa;
     border-radius: 8px;
-    padding: 8px;
+    padding: 8px 4px;
     text-align: center;
+    min-width: 0;
 }
 
 .weather-detail .label {
-    font-size: 0.7em;
+    font-size: 0.65em;
     color: #666;
     text-transform: uppercase;
 }
 
 .weather-detail .value {
-    font-size: 1em;
+    font-size: 0.95em;
     font-weight: 700;
     color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .weather-forecast {

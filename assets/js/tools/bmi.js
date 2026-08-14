@@ -13,18 +13,18 @@ export function mount(container, options = {}) {
                 <button class="toggle-btn active" data-unit="imperial" id="imperialBtn">Imperial (lbs, in)</button>
                 <button class="toggle-btn" data-unit="metric" id="metricBtn">Metric (kg, cm)</button>
             </div>
-            <div class="tool-form compact-2">
+            <div class="tool-form compact-2 bmi-form">
                 <div class="form-group">
                     <label for="weight">Weight</label>
                     <div class="input-wrapper">
-                        <input type="number" id="weight" data-weight placeholder="Enter weight" step="0.1" min="0">
+                        <input type="number" id="weight" data-weight placeholder="0" step="0.1" min="0">
                         <span class="unit-label" data-weight-unit>lbs</span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="height">Height</label>
                     <div class="input-wrapper">
-                        <input type="number" id="height" data-height placeholder="Enter height" step="0.1" min="0">
+                        <input type="number" id="height" data-height placeholder="0" step="0.1" min="0">
                         <span class="unit-label" data-height-unit>in</span>
                     </div>
                 </div>

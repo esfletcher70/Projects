@@ -8,7 +8,7 @@ export function mount(container) {
     container.innerHTML = `
         <div id="error" class="error"></div>
         <div class="tool-section">
-            <div class="tool-form compact-2">
+            <div class="tool-form compact-2 retirement-form">
                 <div class="form-group">
                     <label for="currentAge">Current Age</label>
                     <input type="number" id="currentAge" data-current-age placeholder="30" value="30" min="1">

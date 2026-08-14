@@ -8,7 +8,7 @@ test.describe('Weather dashboard', () => {
     await page.goto('/Weather.html');
 
     // Search box is present.
-    const searchInput = page.getByPlaceholder(/Search city\/state/);
+    const searchInput = page.getByPlaceholder(/Search city, state, or country/);
     await expect(searchInput).toBeVisible();
 
     // Perform a search.
@@ -33,7 +33,7 @@ test.describe('Weather dashboard', () => {
 
     await page.getByRole('button', { name: 'Search' }).click();
 
-    await expect(page.getByText(/Enter a city and state/)).toBeVisible();
+    await expect(page.getByText(/Enter a city, state, or country/)).toBeVisible();
   });
 
   test('shows an error when the location is not found', async ({ page }) => {
@@ -48,7 +48,7 @@ test.describe('Weather dashboard', () => {
     );
 
     await page.goto('/Weather.html');
-    await page.getByPlaceholder(/Search city\/state/).fill('Nowhere, XX');
+    await page.getByPlaceholder(/Search city, state, or country/).fill('Nowhere, XX');
     await page.getByRole('button', { name: 'Search' }).click();
 
     await expect(page.getByText(/Location not found/)).toBeVisible();
