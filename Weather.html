@@ -67,7 +67,7 @@
         setLocationName(searchedLocationName);
       } else {
         const geoResponse = await fetch(
-          `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${OPENWEATHER_API_KEY}`
+          `/api/geo/reverse?lat=${lat}&lon=${lon}&limit=1`
         );
 
 
@@ -111,7 +111,7 @@
 
 
       const geoResponse = await fetch(
-        `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(query)}&limit=1&appid=${OPENWEATHER_API_KEY}`
+        `/api/geo/direct?q=${encodeURIComponent(query)}&limit=1`
       );
 
       const geoData = await geoResponse.json();
@@ -140,15 +140,15 @@
     }
   }
 
-  const formatTime = (unixTime, timezone) => {
+  const formatTime = (unixTime, offsetSeconds) => {
     if (!unixTime) return '--';
 
 
     return new Intl.DateTimeFormat(undefined, {
       hour: 'numeric',
       minute: '2-digit',
-      timeZone: timezone
-    }).format(new Date(unixTime * 1000));
+      timeZone: 'UTC'
+    }).format(new Date((unixTime + (offsetSeconds || 0)) * 1000));
   };
 
   const getWeatherIconUrl = (iconCode) => {
@@ -231,20 +231,20 @@
               <div className="bg-white/10 rounded-2xl p-4">
                 <div className="text-sm opacity-80">Sunrise</div>
                 <div className="text-2xl font-bold">
-                  {formatTime(weather.current.sunrise, weather.timezone)}
+                  {formatTime(weather.current.sunrise, weather.timezone_offset)}
                 </div>
               </div>
 
               <div className="bg-white/10 rounded-2xl p-4">
                 <div className="text-sm opacity-80">Sunset</div>
                 <div className="text-2xl font-bold">
-                  {formatTime(weather.current.sunset, weather.timezone)}
+                  {formatTime(weather.current.sunset, weather.timezone_offset)}
                 </div>
               </div>
             </div>
 
             <div className="bg-white/10 rounded-2xl p-4">
-              <h3 className="font-semibold text-xl mb-4">7-Day Forecast</h3>
+              <h3 className="font-semibold text-xl mb-4">{weather.daily.length}-Day Forecast</h3>
               <div className="grid grid-cols-2 gap-3 md:grid-cols-7">
                 {weather.daily.slice(0, 7).map((day, index) => {
                   const dayIcon = day.weather?.[0]?.icon;
@@ -256,8 +256,8 @@
                       <div className="text-xs font-semibold opacity-90">
                         {new Intl.DateTimeFormat(undefined, {
                           weekday: 'short',
-                          timeZone: weather.timezone
-                        }).format(new Date(day.dt * 1000))}
+                          timeZone: 'UTC'
+                        }).format(new Date((day.dt + (weather.timezone_offset || 0)) * 1000))}
                       </div>
 
 
@@ -279,10 +279,6 @@
             </div>
           </div>
         )}
-
-        <div className="mt-6 text-sm opacity-80">
-          Replace YOUR_OPENWEATHER_API_KEY with your OpenWeather API key.
-        </div>
       </div>
     </div>
   );
