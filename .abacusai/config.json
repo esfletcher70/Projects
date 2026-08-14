@@ -13,7 +13,8 @@
       "Bash(grep *)",
       "Bash(cat *)",
       "Bash(npm ping 2>& *)",
-      "Bash(brew *)"
+      "Bash(brew *)",
+      "Bash(export *)"
     ]
   }
 }
