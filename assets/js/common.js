@@ -1,8 +1,8 @@
 /* ============================================
-   AppHub shared utilities
+   AppHub shared utilities (ES module)
    ============================================ */
 
-function formatCurrency(value, fractionDigits = 0) {
+export function formatCurrency(value, fractionDigits = 0) {
     return new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
@@ -11,54 +11,53 @@ function formatCurrency(value, fractionDigits = 0) {
     }).format(value);
 }
 
-function showError(message) {
-    const errorDiv = document.getElementById('error');
+export function showError(message, container = document) {
+    const errorDiv = container.querySelector('.tool-alert.error') || document.getElementById('error');
     if (!errorDiv) return;
     errorDiv.textContent = message;
     errorDiv.classList.add('show');
 }
 
-function hideError() {
-    const errorDiv = document.getElementById('error');
+export function hideError(container = document) {
+    const errorDiv = container.querySelector('.tool-alert.error') || document.getElementById('error');
     if (!errorDiv) return;
     errorDiv.classList.remove('show');
 }
 
-function showSuccess(message) {
-    const successDiv = document.getElementById('success');
+export function showSuccess(message, container = document) {
+    const successDiv = container.querySelector('.tool-alert.success') || document.getElementById('success');
     if (!successDiv) return;
     successDiv.textContent = message;
     successDiv.classList.add('show');
-    setTimeout(hideSuccess, 3000);
+    setTimeout(() => hideSuccess(container), 3000);
 }
 
-function hideSuccess() {
-    const successDiv = document.getElementById('success');
+export function hideSuccess(container = document) {
+    const successDiv = container.querySelector('.tool-alert.success') || document.getElementById('success');
     if (!successDiv) return;
     successDiv.classList.remove('show');
 }
 
-function copyCode(elementId) {
+export function copyCode(elementId, button) {
     const element = document.getElementById(elementId);
-    if (!element) return;
+    if (!element || !button) return;
     const text = element.textContent;
 
     navigator.clipboard.writeText(text).then(() => {
-        const btn = event.target;
-        const originalText = btn.textContent;
-        btn.textContent = 'Copied!';
-        btn.classList.add('copied');
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
+        button.classList.add('copied');
 
         setTimeout(() => {
-            btn.textContent = originalText;
-            btn.classList.remove('copied');
+            button.textContent = originalText;
+            button.classList.remove('copied');
         }, 2000);
     }).catch(() => {
         showError('Failed to copy. Please try again.');
     });
 }
 
-function formatFileSize(bytes) {
+export function formatFileSize(bytes) {
     if (bytes === 0) return '0 Bytes';
     const k = 1024;
     const sizes = ['Bytes', 'KB', 'MB'];
@@ -66,7 +65,7 @@ function formatFileSize(bytes) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
-function getFormatFromMime(mime) {
+export function getFormatFromMime(mime) {
     const formats = {
         'image/jpeg': 'JPEG',
         'image/png': 'PNG',
@@ -75,11 +74,19 @@ function getFormatFromMime(mime) {
     return formats[mime] || 'Unknown';
 }
 
-function getExtensionFromMime(mime) {
+export function getExtensionFromMime(mime) {
     const extensions = {
         'image/jpeg': 'jpg',
         'image/png': 'png',
         'image/webp': 'webp'
     };
     return extensions[mime] || 'jpg';
+}
+
+export function qs(container, selector) {
+    return container.querySelector(selector);
+}
+
+export function qsa(container, selector) {
+    return container.querySelectorAll(selector);
 }

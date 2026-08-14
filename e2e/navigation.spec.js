@@ -17,13 +17,13 @@ test.describe('Landing page navigation', () => {
     await expect(page.locator('h1')).toContainText('AppHub');
   });
 
-  test('every tool card links to its page', async ({ page }) => {
+  test('every tool card has an open button', async ({ page }) => {
     await page.goto('/');
     for (const tool of TOOLS) {
       const card = page.locator('.card', { hasText: tool.name });
       await expect(card).toBeVisible();
-      const link = card.getByRole('link', { name: /Open|Calculate|Plan|Compress|Check/ });
-      await expect(link).toHaveAttribute('href', tool.href);
+      const button = card.getByRole('button', { name: /Open|Calculate|Plan|Compress|Check/ });
+      await expect(button).toBeVisible();
     }
   });
 

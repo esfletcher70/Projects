@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AppHub - Your Essential Tools</title>
+    <link rel="stylesheet" href="assets/css/tools.css">
     <style>
         * {
             margin: 0;
@@ -172,6 +173,59 @@
             transform: scale(0.98);
         }
 
+        .card-content {
+            position: relative;
+        }
+
+        .card-summary {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .card-tool {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .card.active .card-summary {
+            display: none;
+        }
+
+        .card.active .card-tool {
+            display: flex;
+        }
+
+        .card-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 1.6em;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        .card-close:hover {
+            color: #333;
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .cards-grid:has(.card.active) .card:not(.active) {
+            opacity: 0.6;
+            transform: scale(0.98);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
         /* Features Section */
         .features-section {
             background: var(--dark);
@@ -309,62 +363,80 @@
         <section id="apps">
             <div class="cards-grid">
                 <!-- Calculator Card -->
-                <div class="card">
+                <div class="card" data-tool="calculator">
                     <div class="card-icon">🧮</div>
                     <div class="card-content">
                         <h2>Basic Calculator</h2>
-                        <p>Perform quick mathematical calculations with a simple and intuitive interface. Handle basic arithmetic operations in seconds.</p>
-                        <a href="Calculator.html" class="card-button">Open Calculator</a>
+                        <div class="card-summary">
+                            <p>Perform quick mathematical calculations with a simple and intuitive interface. Handle basic arithmetic operations in seconds.</p>
+                            <button class="card-button" data-action="open">Open Calculator</button>
+                        </div>
+                        <div class="card-tool"></div>
                     </div>
                 </div>
 
                 <!-- BMI Calculator Card -->
-                <div class="card">
+                <div class="card" data-tool="bmi">
                     <div class="card-icon">⚖️</div>
                     <div class="card-content">
                         <h2>BMI Calculator</h2>
-                        <p>Calculate your Body Mass Index in metric or imperial units. Get instant health insights based on your measurements.</p>
-                        <a href="Calculator-BMI.html" class="card-button">Calculate BMI</a>
+                        <div class="card-summary">
+                            <p>Calculate your Body Mass Index in metric or imperial units. Get instant health insights based on your measurements.</p>
+                            <button class="card-button" data-action="open">Calculate BMI</button>
+                        </div>
+                        <div class="card-tool"></div>
                     </div>
                 </div>
 
                 <!-- Mortgage Calculator Card -->
-                <div class="card">
+                <div class="card" data-tool="mortgage">
                     <div class="card-icon">🏠</div>
                     <div class="card-content">
                         <h2>Mortgage Calculator</h2>
-                        <p>Plan your home purchase with accurate mortgage calculations. Visualize payments and understand your financial commitment.</p>
-                        <a href="Calculator-Mortgage.html" class="card-button">Calculate Mortgage</a>
+                        <div class="card-summary">
+                            <p>Plan your home purchase with accurate mortgage calculations. Visualize payments and understand your financial commitment.</p>
+                            <button class="card-button" data-action="open">Calculate Mortgage</button>
+                        </div>
+                        <div class="card-tool"></div>
                     </div>
                 </div>
 
                 <!-- Retirement Calculator Card -->
-                <div class="card">
+                <div class="card" data-tool="retirement">
                     <div class="card-icon">🎯</div>
                     <div class="card-content">
                         <h2>Retirement Calculator</h2>
-                        <p>Plan your retirement with detailed projections. Calculate how much you need to save to achieve your retirement goals.</p>
-                        <a href="Calculator-Retirement.html" class="card-button">Plan Retirement</a>
+                        <div class="card-summary">
+                            <p>Plan your retirement with detailed projections. Calculate how much you need to save to achieve your retirement goals.</p>
+                            <button class="card-button" data-action="open">Plan Retirement</button>
+                        </div>
+                        <div class="card-tool"></div>
                     </div>
                 </div>
 
                 <!-- Image Compression Card -->
-                <div class="card">
+                <div class="card" data-tool="image-compression">
                     <div class="card-icon">🖼️</div>
                     <div class="card-content">
                         <h2>Image Compression</h2>
-                        <p>Reduce image file sizes while maintaining quality. Perfect for faster uploads and web optimization.</p>
-                        <a href="Image-Compression.html" class="card-button">Compress Images</a>
+                        <div class="card-summary">
+                            <p>Reduce image file sizes while maintaining quality. Perfect for faster uploads and web optimization.</p>
+                            <button class="card-button" data-action="open">Compress Images</button>
+                        </div>
+                        <div class="card-tool"></div>
                     </div>
                 </div>
 
                 <!-- Weather Card -->
-                <div class="card">
+                <div class="card" data-tool="weather">
                     <div class="card-icon">🌤️</div>
                     <div class="card-content">
                         <h2>Weather Dashboard</h2>
-                        <p>Check real-time weather conditions for any location. Get forecasts and atmospheric insights instantly.</p>
-                        <a href="Weather.html" class="card-button">Check Weather</a>
+                        <div class="card-summary">
+                            <p>Check real-time weather conditions for any location. Get forecasts and atmospheric insights instantly.</p>
+                            <button class="card-button" data-action="open">Check Weather</button>
+                        </div>
+                        <div class="card-tool"></div>
                     </div>
                 </div>
             </div>
@@ -406,5 +478,7 @@
     <footer id="contact">
         <p>&copy; 2024 AppHub. All rights reserved. Built with ❤️ for productivity.</p>
     </footer>
+
+    <script type="module" src="assets/js/app.js"></script>
 </body>
 </html>

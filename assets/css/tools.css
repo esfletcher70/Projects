@@ -1,0 +1,718 @@
+/* ============================================
+   AppHub tool-in-card and standalone styles
+   ============================================ */
+
+/* Tool wrapper used by standalone pages */
+.standalone-page {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.standalone-page .back-link {
+    display: inline-block;
+    color: var(--light);
+    margin-bottom: 20px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.standalone-page .back-link:hover {
+    text-decoration: underline;
+}
+
+.standalone-page .tool-root {
+    background: var(--dark);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: var(--shadow);
+}
+
+/* Card summary/tool containers */
+.card-summary {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card-tool {
+    display: none;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card.active .card-summary {
+    display: none;
+}
+
+.card.active .card-tool {
+    display: flex;
+}
+
+.card.active .card-content {
+    position: relative;
+    border-top: 2px solid var(--primary);
+}
+
+.card-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.4em;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    border-radius: 50%;
+}
+
+.card-close:hover {
+    color: var(--light);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Dim non-active cards when one is active */
+.cards-grid:has(.card.active) .card:not(.active) {
+    opacity: 0.6;
+    transform: scale(0.98);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+/* Tool typography inside cards */
+.tool-title {
+    font-size: 1.2em;
+    color: var(--dark);
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.tool-section {
+    margin-bottom: 16px;
+}
+
+.tool-section:last-child {
+    margin-bottom: 0;
+}
+
+/* Compact forms */
+.tool-form {
+    display: grid;
+    gap: 12px;
+}
+
+.tool-form.compact-2 {
+    grid-template-columns: 1fr 1fr;
+}
+
+.tool-form .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.tool-form label {
+    color: #666;
+    font-size: 0.85em;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.tool-form input[type="number"] {
+    padding: 10px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1em;
+    color: #333;
+    background: #fff;
+}
+
+.tool-form input[type="number"]:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.tool-form .input-wrapper {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.tool-form .unit-label {
+    color: #666;
+    font-size: 0.9em;
+    font-weight: 600;
+    min-width: 40px;
+}
+
+/* Buttons */
+.tool-btn {
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: #fff;
+}
+
+.tool-btn.primary {
+    background: var(--primary);
+}
+
+.tool-btn.primary:hover {
+    background: #5568d3;
+}
+
+.tool-btn.secondary {
+    background: #3d3d3d;
+    color: var(--light);
+}
+
+.tool-btn.secondary:hover {
+    background: #4d4d4d;
+}
+
+.tool-btn.btn-success {
+    background: var(--success);
+}
+
+.tool-btn.btn-success:hover {
+    background: var(--success-dark);
+}
+
+/* Toggle groups */
+.toggle-group {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.toggle-btn {
+    flex: 1;
+    padding: 8px 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    background: #fff;
+    color: #666;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.toggle-btn.active {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: #fff;
+}
+
+.format-btn {
+    flex: 1;
+    padding: 8px 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    background: #fff;
+    color: #666;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.format-btn.active {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: #fff;
+}
+
+/* Result blocks */
+.result-block {
+    background: #2d2d2d;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    margin-top: 12px;
+}
+
+.result-block .result-value {
+    font-size: 2em;
+    font-weight: 700;
+    color: #fff;
+}
+
+.result-block .result-label {
+    color: var(--text-muted);
+    font-size: 0.9em;
+    margin-bottom: 8px;
+}
+
+.result-block .result-category {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9em;
+    margin-top: 8px;
+}
+
+.result-category.underweight {
+    background: #bee3f8;
+    color: #025aa6;
+}
+
+.result-category.normal {
+    background: #c6f6d5;
+    color: #22543d;
+}
+
+.result-category.overweight {
+    background: #feebc8;
+    color: #7c2d12;
+}
+
+.result-category.obese {
+    background: #fed7d7;
+    color: #742a2a;
+}
+
+/* Compact calculator */
+.calc-display {
+    background: #2d2d2d;
+    color: #fff;
+    font-size: 1.8em;
+    padding: 14px;
+    border-radius: 10px;
+    text-align: right;
+    margin-bottom: 12px;
+    word-wrap: break-word;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.calc-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.calc-grid button {
+    padding: 12px;
+    font-size: 1.2em;
+    border-radius: 8px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.1s;
+    color: #fff;
+    min-height: 44px;
+}
+
+.calc-grid button:active {
+    transform: translateY(1px);
+}
+
+.calc-grid .number {
+    background: #3d3d3d;
+}
+
+.calc-grid .number:hover {
+    background: #4d4d4d;
+}
+
+.calc-grid .operator {
+    background: var(--primary);
+}
+
+.calc-grid .operator:hover {
+    background: #5568d3;
+}
+
+.calc-grid .equals {
+    background: var(--success);
+    grid-column: span 2;
+}
+
+.calc-grid .equals:hover {
+    background: var(--success-dark);
+}
+
+.calc-grid .clear {
+    background: var(--danger);
+    grid-column: span 2;
+}
+
+.calc-grid .clear:hover {
+    background: var(--danger-dark);
+}
+
+/* Image compression */
+.upload-zone {
+    border: 2px dashed var(--primary);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.2s;
+    margin-bottom: 12px;
+}
+
+.upload-zone:hover,
+.upload-zone.dragover {
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.upload-zone input[type="file"] {
+    display: none;
+}
+
+.preview-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.preview-row img {
+    width: 100%;
+    border-radius: 8px;
+    max-height: 150px;
+    object-fit: contain;
+}
+
+.preview-info {
+    text-align: center;
+    font-size: 0.85em;
+    color: #666;
+    margin-top: 4px;
+}
+
+.quality-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.quality-row input[type="range"] {
+    flex: 1;
+}
+
+.stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.stat-card {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+}
+
+.stat-card .stat-label {
+    font-size: 0.75em;
+    color: #666;
+    text-transform: uppercase;
+}
+
+.stat-card .stat-value {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* Weather */
+.weather-search {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.weather-search input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1em;
+}
+
+.weather-search input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.weather-current {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 12px;
+    padding: 16px;
+    color: #fff;
+    margin-bottom: 12px;
+}
+
+.weather-current .location {
+    font-size: 1.1em;
+    font-weight: 700;
+}
+
+.weather-current .description {
+    text-transform: capitalize;
+    opacity: 0.9;
+    font-size: 0.9em;
+}
+
+.weather-current .temp {
+    font-size: 2.5em;
+    font-weight: 700;
+}
+
+.weather-current img {
+    width: 64px;
+    height: 64px;
+}
+
+.weather-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.weather-detail {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 8px;
+    text-align: center;
+}
+
+.weather-detail .label {
+    font-size: 0.7em;
+    color: #666;
+    text-transform: uppercase;
+}
+
+.weather-detail .value {
+    font-size: 1em;
+    font-weight: 700;
+    color: #333;
+}
+
+.weather-forecast {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.weather-forecast .day {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+}
+
+.weather-forecast .day img {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto;
+    display: block;
+}
+
+.weather-forecast .day .temp {
+    font-weight: 700;
+    color: #333;
+}
+
+.weather-forecast .day .desc {
+    font-size: 0.75em;
+    color: #666;
+    text-transform: capitalize;
+}
+
+/* Mortgage result block (backwards-compatible with original page tests) */
+.results {
+    display: none;
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+}
+
+.results.show {
+    display: block;
+}
+
+.results .result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.results .result-item:last-child {
+    border-bottom: none;
+}
+
+.results .result-label {
+    font-weight: 600;
+    color: #666;
+}
+
+.results .result-value {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* Retirement section */
+.results-section {
+    display: none;
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+}
+
+.results-section.show {
+    display: block;
+}
+
+/* Weather forecast title */
+#weatherContent h3 {
+    font-size: 1.1em;
+    margin: 12px 0 8px;
+    color: #333;
+}
+
+/* Retirement mini chart */
+.mini-bar {
+    height: 24px;
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    margin-top: 12px;
+    background: #e2e8f0;
+}
+
+.mini-bar .segment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75em;
+    font-weight: 700;
+    color: #fff;
+}
+
+.mini-bar .segment.contributions {
+    background: var(--primary);
+}
+
+.mini-bar .segment.growth {
+    background: var(--success);
+}
+
+/* Result grid */
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.result-grid .result-cell {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+}
+
+.result-grid .result-cell .label {
+    font-size: 0.7em;
+    color: #666;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.result-grid .result-cell .value {
+    font-size: 1.1em;
+    font-weight: 700;
+    color: #333;
+}
+
+/* Alerts inside cards */
+.tool-alert {
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    margin-bottom: 12px;
+    display: none;
+}
+
+.tool-alert.show {
+    display: block;
+}
+
+.tool-alert.error {
+    background: var(--error-bg);
+    color: var(--error-text);
+}
+
+.tool-alert.success {
+    background: var(--success-bg);
+    color: var(--success-text);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .tool-form.compact-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .result-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .weather-current {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .weather-current .temp {
+        font-size: 2em;
+    }
+
+    .weather-details,
+    .weather-forecast {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .preview-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .calc-grid button {
+        padding: 10px;
+        font-size: 1em;
+    }
+
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .weather-forecast {
+        grid-template-columns: 1fr;
+    }
+}
