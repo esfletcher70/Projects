@@ -2,7 +2,7 @@
 /**
  * Mock data + route interception for the Weather dashboard.
  *
- * The weather page talks to the Python proxy server (/api/geo/direct,
+ * The weather page talks to Cloudflare Pages Functions (/api/geo/direct,
  * /api/geo/reverse, /api/weather). These mocks stand in for the upstream
  * OpenWeather responses so the E2E test is deterministic and needs no
  * network access or real API key.

@@ -2,15 +2,17 @@
   "name": "apphub",
   "version": "1.0.0",
   "private": true,
-  "description": "AppHub static site + Python proxy server",
+  "description": "AppHub static site hosted on Cloudflare Pages with edge functions",
   "scripts": {
-    "lint": "eslint assets/js/*.js assets/js/**/*.js",
+    "lint": "eslint public/assets/js/*.js public/assets/js/**/*.js functions/**/*.js",
+    "dev": "wrangler pages dev public --local",
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed",
     "test:e2e:report": "playwright show-report"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",
-    "eslint": "^8.57.0"
+    "eslint": "^8.57.0",
+    "wrangler": "^4.123.0"
   }
 }

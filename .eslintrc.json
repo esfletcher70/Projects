@@ -14,8 +14,19 @@
   },
   "overrides": [
     {
-      "files": ["assets/js/app.js", "assets/js/tools/**/*.js"],
+      "files": ["public/assets/js/app.js", "public/assets/js/tools/**/*.js"],
       "parserOptions": {
+        "sourceType": "module"
+      }
+    },
+    {
+      "files": ["functions/**/*.js"],
+      "env": {
+        "worker": true,
+        "es2021": true
+      },
+      "parserOptions": {
+        "ecmaVersion": 2021,
         "sourceType": "module"
       }
     }

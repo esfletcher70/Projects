@@ -11,5 +11,9 @@ package-lock.json
 test-results/
 playwright-report/
 
+# Wrangler local secrets
+.dev.vars
+.wrangler/
+
 # Secrets
 server/.env

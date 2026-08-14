@@ -3,9 +3,8 @@
 
 There is no bundler in this project, so "build" means verifying the
 artifacts are deployable:
-  1. server.py compiles.
-  2. Every local asset referenced by an HTML file actually exists.
-  3. No HTML file is empty.
+  1. Every local asset referenced by an HTML file actually exists.
+  2. No HTML file is empty.
 
 Run from the project root:
     python3 scripts/validate.py
@@ -16,30 +15,26 @@ import re
 import sys
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PUBLIC_DIR = os.path.join(PROJECT_ROOT, "public")
 
 # src="..." or href="..." that point at local files (not http(s) or #).
 REF_RE = re.compile(r'(?:src|href)\s*=\s*["\']([^"\']+)["\']')
 
 
-def compile_server():
-    import py_compile
-
-    py_compile.compile(
-        os.path.join(PROJECT_ROOT, "server", "server.py"),
-        doraise=True,
-    )
-
-
 def validate_html():
     errors = []
+    if not os.path.isdir(PUBLIC_DIR):
+        errors.append("public/ directory not found.")
+        return errors
+
     html_files = sorted(
-        f for f in os.listdir(PROJECT_ROOT) if f.lower().endswith(".html")
+        f for f in os.listdir(PUBLIC_DIR) if f.lower().endswith(".html")
     )
     if not html_files:
-        errors.append("No HTML files found in project root.")
+        errors.append("No HTML files found in public/.")
 
     for name in html_files:
-        path = os.path.join(PROJECT_ROOT, name)
+        path = os.path.join(PUBLIC_DIR, name)
         with open(path, encoding="utf-8") as f:
             content = f.read()
         if not content.strip():
@@ -55,7 +50,7 @@ def validate_html():
             ref = ref.split("?")[0].split("#")[0]
             if not ref:
                 continue
-            target = os.path.normpath(os.path.join(PROJECT_ROOT, ref))
+            target = os.path.normpath(os.path.join(PUBLIC_DIR, ref))
             if not os.path.isfile(target):
                 errors.append(f"{name}: missing local reference '{ref}'")
 
@@ -63,14 +58,7 @@ def validate_html():
 
 
 def main():
-    errors = []
-    try:
-        compile_server()
-        print("OK: server.py compiles")
-    except Exception as e:  # noqa: BLE001
-        errors.append(f"server.py failed to compile: {e}")
-
-    errors.extend(validate_html())
+    errors = validate_html()
 
     if errors:
         print("BUILD FAILED:")
