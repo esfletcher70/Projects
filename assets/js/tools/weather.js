@@ -13,10 +13,8 @@ export function mount(container, options = {}) {
         <div class="tool-section">
             <div class="weather-search" data-search>
                 <input type="text" id="searchInput" data-search-input placeholder="Search city, state, or country" aria-label="Search city, state, or country">
+                <button class="location-btn" id="locationBtn" data-location-btn title="Use my location" aria-label="Use my location">📍</button>
                 <button class="tool-btn primary" id="searchBtn" data-search-btn>Search</button>
-            </div>
-            <div class="button-group" style="margin-bottom: 12px;">
-                <button class="tool-btn secondary" id="locationBtn" data-location-btn>Use My Location</button>
             </div>
             <div id="loading" style="display: none; margin-bottom: 12px;">Loading weather...</div>
             <div id="weatherContent" data-weather-content></div>

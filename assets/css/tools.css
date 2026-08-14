@@ -521,6 +521,27 @@
     border-color: var(--primary);
 }
 
+.weather-search .location-btn {
+    flex: 0 0 auto;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 1.1em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.weather-search .location-btn:hover {
+    border-color: var(--primary);
+    background: rgba(102, 126, 234, 0.1);
+}
+
 .weather-current {
     display: flex;
     align-items: center;

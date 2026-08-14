@@ -104,12 +104,12 @@ test.describe('Card-embedded tools on the landing page', () => {
         await expect(card.getByText('clear sky').first()).toBeVisible();
     });
 
-    test('weather card provides a Use My Location button', async ({ page }) => {
+    test('weather card provides a Use My Location button in the search field', async ({ page }) => {
         await page.goto('/');
         await openCard(page, 'Weather Dashboard');
 
         const card = getCard(page, 'Weather Dashboard');
-        await expect(card.getByRole('button', { name: 'Use My Location' })).toBeVisible();
+        await expect(card.getByRole('button', { name: 'Use my location' })).toBeVisible();
     });
 
     test('closing a card restores the summary and unmounts the tool', async ({ page }) => {
