@@ -1,5 +1,5 @@
 /* ============================================
-   AppHub Weather Dashboard (tool module)
+   Small App Tools Weather Dashboard (tool module)
    ============================================ */
 
 import { showError, hideError, qs } from '../common.js';

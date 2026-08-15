@@ -1,5 +1,5 @@
 /* ============================================
-   AppHub Basic Calculator (tool module)
+   Small App Tools Basic Calculator (tool module)
    ============================================ */
 
 import { qs } from '../common.js';

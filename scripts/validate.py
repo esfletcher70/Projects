@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build/validation step for the AppHub static site.
+"""Build/validation step for the Small App Tools static site.
 
 There is no bundler in this project, so "build" means verifying the
 artifacts are deployable:

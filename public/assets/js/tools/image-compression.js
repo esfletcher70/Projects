@@ -1,5 +1,5 @@
 /* ============================================
-   AppHub Image Compression (tool module)
+   Small App Tools Image Compression (tool module)
    ============================================ */
 
 import {

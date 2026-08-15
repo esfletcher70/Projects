@@ -1,5 +1,5 @@
 /* ============================================
-   AppHub Mortgage Calculator (tool module)
+   Small App Tools Mortgage Calculator (tool module)
    ============================================ */
 
 import { formatCurrency, showError, hideError, qs } from '../common.js';

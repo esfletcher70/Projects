@@ -2,7 +2,7 @@
 const { defineConfig } = require('@playwright/test');
 
 /**
- * End-to-end tests for AppHub.
+ * End-to-end tests for Small App Tools.
  *
  * Cloudflare Pages Functions serve the weather API proxy. Playwright starts
  * a local Pages dev server via wrangler. A dummy API key is used because the

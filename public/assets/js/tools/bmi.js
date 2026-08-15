@@ -1,5 +1,5 @@
 /* ============================================
-   AppHub BMI Calculator (tool module)
+   Small App Tools BMI Calculator (tool module)
    ============================================ */
 
 import { showError, hideError, qs } from '../common.js';

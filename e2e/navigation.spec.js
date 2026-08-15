@@ -11,10 +11,10 @@ const TOOLS = [
 ];
 
 test.describe('Landing page navigation', () => {
-  test('loads the AppHub landing page', async ({ page }) => {
+  test('loads the Small App Tools landing page', async ({ page }) => {
     await page.goto('/');
-    await expect(page).toHaveTitle(/AppHub/);
-    await expect(page.locator('h1')).toContainText('AppHub');
+    await expect(page).toHaveTitle(/Small App Tools/);
+    await expect(page.locator('h1')).toContainText('Small App Tools');
   });
 
   test('every tool card has an open button', async ({ page }) => {

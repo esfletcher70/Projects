@@ -1,8 +1,8 @@
 {
-  "name": "apphub",
+  "name": "small-app-tools",
   "version": "1.0.0",
   "private": true,
-  "description": "AppHub static site hosted on Cloudflare Pages with edge functions",
+  "description": "Small App Tools static site hosted on Cloudflare Pages with edge functions",
   "scripts": {
     "lint": "eslint public/assets/js/*.js public/assets/js/**/*.js functions/**/*.js",
     "dev": "wrangler pages dev public --local",

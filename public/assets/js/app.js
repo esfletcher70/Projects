@@ -1,5 +1,5 @@
 /* ============================================
-   AppHub landing-page card controller
+   Small App Tools landing-page card controller
    ============================================ */
 
 import { mount as mountCalculator } from './tools/calculator.js';

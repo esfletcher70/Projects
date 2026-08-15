@@ -1,5 +1,5 @@
 /* ============================================
-   AppHub Retirement Calculator (tool module)
+   Small App Tools Retirement Calculator (tool module)
    ============================================ */
 
 import { formatCurrency, showError, hideError, qs } from '../common.js';

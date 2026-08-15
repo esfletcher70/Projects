@@ -1,5 +1,5 @@
 /* ============================================
-   AppHub shared utilities (ES module)
+   Small App Tools shared utilities (ES module)
    ============================================ */
 
 export function formatCurrency(value, fractionDigits = 0) {
