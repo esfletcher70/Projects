@@ -32,6 +32,12 @@ export function showSuccess(message, container = document) {
     setTimeout(() => hideSuccess(container), 3000);
 }
 
+export function requireValid(condition, message, container) {
+    if (condition) return true;
+    showError(message, container);
+    return false;
+}
+
 export function hideSuccess(container = document) {
     const successDiv = container.querySelector('.tool-alert.success') || document.getElementById('success');
     if (!successDiv) return;

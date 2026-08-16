@@ -2,7 +2,7 @@
    Small App Tools BMI Calculator (tool module)
    ============================================ */
 
-import { showError, hideError, qs } from '../common.js';
+import { hideError, qs, requireValid } from '../common.js';
 
 export function mount(container, options = {}) {
     const mode = options.mode || 'card';
@@ -13,7 +13,7 @@ export function mount(container, options = {}) {
                 <button class="toggle-btn active" data-unit="imperial" id="imperialBtn">Imperial (lbs, in)</button>
                 <button class="toggle-btn" data-unit="metric" id="metricBtn">Metric (kg, cm)</button>
             </div>
-            <div class="tool-form compact-2 bmi-form">
+            <div class="tool-form compact-2 compact bmi-form">
                 <div class="form-group">
                     <label for="weight">Weight</label>
                     <div class="input-wrapper">
@@ -75,14 +75,8 @@ export function mount(container, options = {}) {
         const weight = parseFloat(weightInput.value);
         const height = parseFloat(heightInput.value);
 
-        if (!weight || weight <= 0) {
-            showError('Please enter a valid weight.', container);
-            return;
-        }
-        if (!height || height <= 0) {
-            showError('Please enter a valid height.', container);
-            return;
-        }
+        if (!requireValid(weight > 0, 'Please enter a valid weight.', container)) return;
+        if (!requireValid(height > 0, 'Please enter a valid height.', container)) return;
 
         let bmi;
         if (currentUnit === 'metric') {

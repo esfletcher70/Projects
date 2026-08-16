@@ -2,13 +2,13 @@
    Small App Tools Retirement Calculator (tool module)
    ============================================ */
 
-import { formatCurrency, showError, hideError, qs } from '../common.js';
+import { formatCurrency, hideError, qs, requireValid } from '../common.js';
 
 export function mount(container) {
     container.innerHTML = `
         <div id="error" class="error"></div>
         <div class="tool-section">
-            <div class="tool-form compact-2 retirement-form">
+            <div class="tool-form compact-2 compact retirement-form">
                 <div class="form-group">
                     <label for="currentAge">Current Age</label>
                     <input type="number" id="currentAge" data-current-age placeholder="30" value="30" min="1">
@@ -87,30 +87,12 @@ export function mount(container) {
         const annualContribution = parseFloat(annualContributionInput.value) || 0;
         const annualReturn = parseFloat(annualReturnInput.value) || 0;
 
-        if (!currentAge || currentAge <= 0) {
-            showError('Please enter a valid current age.', container);
-            return;
-        }
-        if (!retirementAge || retirementAge <= currentAge) {
-            showError('Retirement age must be greater than current age.', container);
-            return;
-        }
-        if (!lifeExpectancy || lifeExpectancy <= retirementAge) {
-            showError('Life expectancy must be greater than retirement age.', container);
-            return;
-        }
-        if (currentSavings < 0) {
-            showError('Current savings cannot be negative.', container);
-            return;
-        }
-        if (annualContribution < 0) {
-            showError('Annual contribution cannot be negative.', container);
-            return;
-        }
-        if (annualReturn < 0) {
-            showError('Annual return cannot be negative.', container);
-            return;
-        }
+        if (!requireValid(currentAge > 0, 'Please enter a valid current age.', container)) return;
+        if (!requireValid(retirementAge > currentAge, 'Retirement age must be greater than current age.', container)) return;
+        if (!requireValid(lifeExpectancy > retirementAge, 'Life expectancy must be greater than retirement age.', container)) return;
+        if (!requireValid(currentSavings >= 0, 'Current savings cannot be negative.', container)) return;
+        if (!requireValid(annualContribution >= 0, 'Annual contribution cannot be negative.', container)) return;
+        if (!requireValid(annualReturn >= 0, 'Annual return cannot be negative.', container)) return;
 
         const yearsToRetirementValue = retirementAge - currentAge;
         const yearsInRetirementValue = lifeExpectancy - retirementAge;

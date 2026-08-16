@@ -24,6 +24,9 @@
     --success-bg: #c6f6d5;
     --success-text: #22543d;
     --shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    --border-light: #e2e8f0;
+    --text-body: #666;
+    --text-dark: #333;
 }
 
 * {

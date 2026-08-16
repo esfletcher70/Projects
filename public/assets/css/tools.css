@@ -116,7 +116,7 @@
 }
 
 .tool-form label {
-    color: #666;
+    color: var(--text-body);
     font-size: 0.85em;
     margin-bottom: 4px;
     font-weight: 600;
@@ -124,11 +124,11 @@
 
 .tool-form input[type="number"] {
     padding: 10px;
-    border: 2px solid #e2e8f0;
+    border: 2px solid var(--border-light);
     border-radius: 8px;
     font-size: 1em;
-    color: #333;
-    background: #fff;
+    color: var(--text-dark);
+    background: var(--light);
 }
 
 .tool-form input[type="number"]:focus {
@@ -143,28 +143,29 @@
 }
 
 .tool-form .unit-label {
-    color: #666;
+    color: var(--text-body);
     font-size: 0.9em;
     font-weight: 600;
     min-width: 40px;
 }
 
-/* Compact BMI form: smaller fields so weight and height fit side by side */
-.tool-form.bmi-form {
+/* Compact forms: smaller fields so multi-column tool forms fit in a card */
+.tool-form.compact {
     gap: 8px;
 }
 
-.tool-form.bmi-form .form-group {
+.tool-form.compact .form-group {
     min-width: 0;
 }
 
-.tool-form.bmi-form input[type="number"] {
+.tool-form.compact input[type="number"] {
     padding: 6px 8px;
     font-size: 0.9em;
     min-width: 0;
     width: 100%;
 }
 
+/* BMI-only: unit toggle sits inline with the input, so it needs a tighter gap */
 .tool-form.bmi-form .input-wrapper {
     gap: 4px;
 }
@@ -175,23 +176,9 @@
     white-space: nowrap;
 }
 
-/* Compact mortgage form: smaller fields so the 2x2 grid fits in the card */
-.tool-form.mortgage-form {
-    gap: 8px;
-}
-
-.tool-form.mortgage-form .form-group {
-    min-width: 0;
-}
-
-.tool-form.mortgage-form input[type="number"] {
-    padding: 6px 8px;
-    font-size: 0.9em;
-    min-width: 0;
-    width: 100%;
-}
-
-.tool-form.mortgage-form label {
+/* Mortgage/retirement labels run smaller than the compact default */
+.tool-form.mortgage-form label,
+.tool-form.retirement-form label {
     font-size: 0.8em;
 }
 
@@ -199,26 +186,6 @@
     padding: 6px 8px;
     font-size: 0.9em;
     width: 100%;
-}
-
-/* Compact retirement form: smaller fields so the 2x3 grid fits in the card */
-.tool-form.retirement-form {
-    gap: 8px;
-}
-
-.tool-form.retirement-form .form-group {
-    min-width: 0;
-}
-
-.tool-form.retirement-form input[type="number"] {
-    padding: 6px 8px;
-    font-size: 0.9em;
-    min-width: 0;
-    width: 100%;
-}
-
-.tool-form.retirement-form label {
-    font-size: 0.8em;
 }
 
 /* Buttons */
@@ -229,7 +196,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
-    color: #fff;
+    color: var(--light);
 }
 
 .tool-btn.primary {
@@ -267,10 +234,10 @@
 .toggle-btn {
     flex: 1;
     padding: 8px 12px;
-    border: 2px solid #e2e8f0;
+    border: 2px solid var(--border-light);
     border-radius: 8px;
-    background: #fff;
-    color: #666;
+    background: var(--light);
+    color: var(--text-body);
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
@@ -279,16 +246,16 @@
 .toggle-btn.active {
     border-color: var(--primary);
     background: var(--primary);
-    color: #fff;
+    color: var(--light);
 }
 
 .format-btn {
     flex: 1;
     padding: 8px 12px;
-    border: 2px solid #e2e8f0;
+    border: 2px solid var(--border-light);
     border-radius: 8px;
-    background: #fff;
-    color: #666;
+    background: var(--light);
+    color: var(--text-body);
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
@@ -297,7 +264,7 @@
 .format-btn.active {
     border-color: var(--primary);
     background: var(--primary);
-    color: #fff;
+    color: var(--light);
 }
 
 /* Result blocks */
@@ -312,7 +279,7 @@
 .result-block .result-value {
     font-size: 2em;
     font-weight: 700;
-    color: #fff;
+    color: var(--light);
 }
 
 .result-block .result-label {
@@ -353,7 +320,7 @@
 /* Compact calculator */
 .calc-display {
     background: #2d2d2d;
-    color: #fff;
+    color: var(--light);
     font-size: 1.8em;
     padding: 14px;
     border-radius: 10px;
@@ -380,7 +347,7 @@
     border: none;
     cursor: pointer;
     transition: transform 0.1s;
-    color: #fff;
+    color: var(--light);
     min-height: 44px;
 }
 
@@ -429,7 +396,7 @@
     padding: 20px;
     text-align: center;
     cursor: pointer;
-    color: #666;
+    color: var(--text-body);
     transition: all 0.2s;
     margin-bottom: 12px;
 }
@@ -460,7 +427,7 @@
 .preview-info {
     text-align: center;
     font-size: 0.85em;
-    color: #666;
+    color: var(--text-body);
     margin-top: 4px;
 }
 
@@ -483,7 +450,7 @@
 }
 
 .stat-card {
-    background: #f8f9fa;
+    background: var(--gray-light);
     border-radius: 8px;
     padding: 10px;
     text-align: center;
@@ -491,7 +458,7 @@
 
 .stat-card .stat-label {
     font-size: 0.75em;
-    color: #666;
+    color: var(--text-body);
     text-transform: uppercase;
 }
 
@@ -511,7 +478,7 @@
 .weather-search input {
     flex: 1;
     padding: 10px 12px;
-    border: 2px solid #e2e8f0;
+    border: 2px solid var(--border-light);
     border-radius: 8px;
     font-size: 1em;
 }
@@ -526,9 +493,9 @@
     width: 42px;
     height: 42px;
     padding: 0;
-    border: 2px solid #e2e8f0;
+    border: 2px solid var(--border-light);
     border-radius: 8px;
-    background: #fff;
+    background: var(--light);
     font-size: 1.1em;
     cursor: pointer;
     display: flex;
@@ -550,7 +517,7 @@
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     border-radius: 12px;
     padding: 16px;
-    color: #fff;
+    color: var(--light);
     margin-bottom: 12px;
 }
 
@@ -583,7 +550,7 @@
 }
 
 .weather-detail {
-    background: #f8f9fa;
+    background: var(--gray-light);
     border-radius: 8px;
     padding: 8px 4px;
     text-align: center;
@@ -592,14 +559,14 @@
 
 .weather-detail .label {
     font-size: 0.65em;
-    color: #666;
+    color: var(--text-body);
     text-transform: uppercase;
 }
 
 .weather-detail .value {
     font-size: 0.95em;
     font-weight: 700;
-    color: #333;
+    color: var(--text-dark);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -612,7 +579,7 @@
 }
 
 .weather-forecast .day {
-    background: #f8f9fa;
+    background: var(--gray-light);
     border-radius: 8px;
     padding: 10px;
     text-align: center;
@@ -627,19 +594,19 @@
 
 .weather-forecast .day .temp {
     font-weight: 700;
-    color: #333;
+    color: var(--text-dark);
 }
 
 .weather-forecast .day .desc {
     font-size: 0.75em;
-    color: #666;
+    color: var(--text-body);
     text-transform: capitalize;
 }
 
 /* Mortgage result block (backwards-compatible with original page tests) */
 .results {
     display: none;
-    background: #f8f9fa;
+    background: var(--gray-light);
     border-radius: 12px;
     padding: 16px;
     margin-top: 12px;
@@ -654,7 +621,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid var(--border-light);
 }
 
 .results .result-item:last-child {
@@ -663,7 +630,7 @@
 
 .results .result-label {
     font-weight: 600;
-    color: #666;
+    color: var(--text-body);
 }
 
 .results .result-value {
@@ -675,7 +642,7 @@
 /* Retirement section */
 .results-section {
     display: none;
-    background: #f8f9fa;
+    background: var(--gray-light);
     border-radius: 12px;
     padding: 16px;
     margin-top: 12px;
@@ -689,7 +656,7 @@
 #weatherContent h3 {
     font-size: 1.1em;
     margin: 12px 0 8px;
-    color: #333;
+    color: var(--text-dark);
 }
 
 /* Retirement mini chart */
@@ -699,7 +666,7 @@
     overflow: hidden;
     display: flex;
     margin-top: 12px;
-    background: #e2e8f0;
+    background: var(--border-light);
 }
 
 .mini-bar .segment {
@@ -708,7 +675,7 @@
     justify-content: center;
     font-size: 0.75em;
     font-weight: 700;
-    color: #fff;
+    color: var(--light);
 }
 
 .mini-bar .segment.contributions {
@@ -728,7 +695,7 @@
 }
 
 .result-grid .result-cell {
-    background: #f8f9fa;
+    background: var(--gray-light);
     border-radius: 8px;
     padding: 10px;
     text-align: center;
@@ -736,7 +703,7 @@
 
 .result-grid .result-cell .label {
     font-size: 0.7em;
-    color: #666;
+    color: var(--text-body);
     text-transform: uppercase;
     margin-bottom: 4px;
 }
@@ -744,7 +711,7 @@
 .result-grid .result-cell .value {
     font-size: 1.1em;
     font-weight: 700;
-    color: #333;
+    color: var(--text-dark);
 }
 
 /* Alerts inside cards */

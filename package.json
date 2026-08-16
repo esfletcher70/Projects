@@ -4,8 +4,9 @@
   "private": true,
   "description": "Small App Tools static site hosted on Cloudflare Pages with edge functions",
   "scripts": {
-    "lint": "eslint public/assets/js/*.js public/assets/js/**/*.js functions/**/*.js",
+    "lint": "eslint \"public/assets/js/**/*.js\" \"functions/**/*.js\"",
     "dev": "wrangler pages dev public --local",
+    "validate": "python3 scripts/validate.py",
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed",
     "test:e2e:report": "playwright show-report"

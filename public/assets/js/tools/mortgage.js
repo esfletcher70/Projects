@@ -2,13 +2,13 @@
    Small App Tools Mortgage Calculator (tool module)
    ============================================ */
 
-import { formatCurrency, showError, hideError, qs } from '../common.js';
+import { formatCurrency, hideError, qs, requireValid } from '../common.js';
 
 export function mount(container) {
     container.innerHTML = `
         <div id="error" class="error"></div>
         <div class="tool-section">
-            <div class="tool-form compact-2 mortgage-form">
+            <div class="tool-form compact-2 compact mortgage-form">
                 <div class="form-group">
                     <label for="homePrice">Home Price</label>
                     <input type="number" id="homePrice" data-price placeholder="300000" value="300000" step="1000" min="0">
@@ -75,26 +75,11 @@ export function mount(container) {
         const rate = parseFloat(rateInput.value) || 0;
         const term = parseInt(termInput.value, 10) || 0;
 
-        if (price <= 0) {
-            showError('Please enter a valid home price.', container);
-            return;
-        }
-        if (down < 0) {
-            showError('Please enter a valid down payment.', container);
-            return;
-        }
-        if (down >= price) {
-            showError('Down payment cannot be greater than or equal to home price.', container);
-            return;
-        }
-        if (rate <= 0) {
-            showError('Please enter a valid interest rate.', container);
-            return;
-        }
-        if (term <= 0) {
-            showError('Please enter a valid loan term.', container);
-            return;
-        }
+        if (!requireValid(price > 0, 'Please enter a valid home price.', container)) return;
+        if (!requireValid(down >= 0, 'Please enter a valid down payment.', container)) return;
+        if (!requireValid(down < price, 'Down payment cannot be greater than or equal to home price.', container)) return;
+        if (!requireValid(rate > 0, 'Please enter a valid interest rate.', container)) return;
+        if (!requireValid(term > 0, 'Please enter a valid loan term.', container)) return;
 
         const loanAmount = price - down;
         const monthlyRate = rate / 100 / 12;

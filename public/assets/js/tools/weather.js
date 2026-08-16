@@ -29,18 +29,10 @@ export function mount(container, options = {}) {
         return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
     }
 
-    function formatTime(unixTime, offsetSeconds) {
+    function formatLocalTime(unixTime, offsetSeconds, intlOptions) {
         if (!unixTime) return '--';
         return new Intl.DateTimeFormat(undefined, {
-            hour: 'numeric',
-            minute: '2-digit',
-            timeZone: 'UTC'
-        }).format(new Date((unixTime + (offsetSeconds || 0)) * 1000));
-    }
-
-    function formatDay(unixTime, offsetSeconds) {
-        return new Intl.DateTimeFormat(undefined, {
-            weekday: 'short',
+            ...intlOptions,
             timeZone: 'UTC'
         }).format(new Date((unixTime + (offsetSeconds || 0)) * 1000));
     }
@@ -174,11 +166,11 @@ export function mount(container, options = {}) {
                 </div>
                 <div class="weather-detail">
                     <div class="label">Sunrise</div>
-                    <div class="value">${formatTime(current.sunrise, weather.timezone_offset)}</div>
+                    <div class="value">${formatLocalTime(current.sunrise, weather.timezone_offset, { hour: 'numeric', minute: '2-digit' })}</div>
                 </div>
                 <div class="weather-detail">
                     <div class="label">Sunset</div>
-                    <div class="value">${formatTime(current.sunset, weather.timezone_offset)}</div>
+                    <div class="value">${formatLocalTime(current.sunset, weather.timezone_offset, { hour: 'numeric', minute: '2-digit' })}</div>
                 </div>
             </div>
             <h3 id="forecastTitle">${forecast.length}-Day Forecast</h3>
@@ -188,7 +180,7 @@ export function mount(container, options = {}) {
                     const dayDescription = day.weather?.[0]?.description || day.weather?.[0]?.main || 'Forecast';
                     return `
                         <div class="day">
-                            <div class="label">${formatDay(day.dt, weather.timezone_offset)}</div>
+                            <div class="label">${formatLocalTime(day.dt, weather.timezone_offset, { weekday: 'short' })}</div>
                             ${dayIcon ? `<img src="${getWeatherIconUrl(dayIcon)}" alt="${dayDescription}">` : ''}
                             <div class="temp">${Math.round(day.temp.max)}° / ${Math.round(day.temp.min)}°</div>
                             <div class="desc">${dayDescription}</div>
