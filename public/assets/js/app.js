@@ -12,6 +12,7 @@ const tools = {
     'qr-code': { load: () => import('./tools/qr-code.js'), label: 'QR Code Generator' },
     pomodoro: { load: () => import('./tools/pomodoro.js'), label: 'Pomodoro Timer' },
     'art-of-the-day': { load: () => import('./tools/art-of-the-day.js'), label: 'Art Piece of the Day' },
+    'song-of-the-day': { load: () => import('./tools/song-of-the-day.js'), label: 'Song of the Day' },
 };
 
 let activeCard = null;

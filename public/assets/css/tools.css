@@ -371,6 +371,41 @@
     text-decoration: underline;
 }
 
+/* Song of the Day */
+.song-image {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+.song-artist,
+.song-album {
+    color: var(--text-muted);
+    font-size: 0.9em;
+    margin-top: 4px;
+}
+
+.song-audio {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+}
+
+.song-link {
+    display: block;
+    margin-top: 12px;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.song-link:hover {
+    text-decoration: underline;
+}
+
 /* Pomodoro Timer */
 .timer-display {
     font-size: 3em;

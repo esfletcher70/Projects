@@ -1,4 +1,4 @@
-import { errorResponse, fetchUpstream } from "./_utils.js";
+import { errorResponse, fetchUpstream, hashDateString, secondsUntilNextUtcMidnight } from "./_utils.js";
 
 const ARTIC_SEARCH_URL = "https://api.artic.edu/api/v1/artworks/search";
 const ARTIC_FIELDS = "id,title,artist_display,date_display,medium_display,credit_line,image_id";
@@ -18,20 +18,6 @@ function buildSearchUrl(page) {
   params.set("limit", "1");
   params.set("page", String(page));
   return `${ARTIC_SEARCH_URL}?${params.toString()}`;
-}
-
-function hashDateString(str) {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = (hash * 31 + str.charCodeAt(i)) >>> 0;
-  }
-  return hash;
-}
-
-function secondsUntilNextUtcMidnight() {
-  const now = new Date();
-  const nextMidnight = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1);
-  return Math.max(60, Math.floor((nextMidnight - now.getTime()) / 1000));
 }
 
 export async function onRequestGet() {

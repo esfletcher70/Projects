@@ -37,7 +37,8 @@
         { "@type": "WebApplication", "name": "Image Compression", "url": "https://smallapp.tools/Image-Compression.html", "applicationCategory": "MultimediaApplication" },
         { "@type": "WebApplication", "name": "QR Code Generator", "url": "https://smallapp.tools/QR-Code.html", "applicationCategory": "UtilitiesApplication" },
         { "@type": "WebApplication", "name": "Pomodoro Timer", "url": "https://smallapp.tools/Pomodoro-Timer.html", "applicationCategory": "ProductivityApplication" },
-        { "@type": "WebApplication", "name": "Art Piece of the Day", "url": "https://smallapp.tools/Art-Piece-of-the-Day.html", "applicationCategory": "LifestyleApplication" }
+        { "@type": "WebApplication", "name": "Art Piece of the Day", "url": "https://smallapp.tools/Art-Piece-of-the-Day.html", "applicationCategory": "LifestyleApplication" },
+        { "@type": "WebApplication", "name": "Song of the Day", "url": "https://smallapp.tools/Song-of-the-Day.html", "applicationCategory": "LifestyleApplication" }
       ]
     }
     </script>
@@ -198,6 +199,7 @@
             text-decoration: none;
             display: inline-block;
             text-align: center;
+            flex: none;
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
@@ -397,6 +399,19 @@
                         <div class="card-summary">
                             <p>A new artwork from the Art Institute of Chicago's public domain collection, every day. Free, right in your browser.</p>
                             <button class="card-button" data-action="open">See Today's Art</button>
+                        </div>
+                        <div class="card-tool"></div>
+                    </div>
+                </div>
+
+                <!-- Song of the Day Card -->
+                <div class="card" data-tool="song-of-the-day">
+                    <div class="card-icon">🎵</div>
+                    <div class="card-content">
+                        <h2><a href="Song-of-the-Day.html">Song of the Day</a></h2>
+                        <div class="card-summary">
+                            <p>A new Creative Commons track from Jamendo, every day. Free, right in your browser.</p>
+                            <button class="card-button" data-action="open">Play Today's Song</button>
                         </div>
                         <div class="card-tool"></div>
                     </div>
