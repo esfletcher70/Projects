@@ -21,6 +21,17 @@
     text-decoration: underline;
 }
 
+.standalone-page .page-intro h1 {
+    margin-bottom: 10px;
+}
+
+.standalone-page .page-intro p {
+    text-align: center;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto 30px;
+}
+
 .standalone-page .tool-root {
     background: var(--dark);
     border-radius: 20px;
