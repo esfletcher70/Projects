@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer - Free Online Focus Timer | Small App Tools</title>
+    <meta name="description" content="Free online Pomodoro timer with 25-minute work sessions and automatic short/long breaks. Stay focused right in your browser, no sign-up required.">
+    <link rel="canonical" href="https://smallapp.tools/Pomodoro-Timer.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Pomodoro Timer - Small App Tools">
+    <meta property="og:description" content="Free online Pomodoro timer with 25-minute work sessions and automatic short/long breaks. Stay focused right in your browser.">
+    <meta property="og:url" content="https://smallapp.tools/Pomodoro-Timer.html">
+    <meta property="og:site_name" content="Small App Tools">
+    <meta property="og:image" content="https://smallapp.tools/assets/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Pomodoro Timer - Small App Tools">
+    <meta name="twitter:description" content="Free online Pomodoro timer with 25-minute work sessions and automatic short/long breaks. Stay focused right in your browser.">
+    <meta name="twitter:image" content="https://smallapp.tools/assets/images/og-image.jpg">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Pomodoro Timer",
+      "url": "https://smallapp.tools/Pomodoro-Timer.html",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "isPartOf": { "@type": "WebSite", "name": "Small App Tools", "url": "https://smallapp.tools/" }
+    }
+    </script>
+
+    <link rel="stylesheet" href="assets/css/theme.css">
+    <link rel="stylesheet" href="assets/css/tools.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        var satConsent = localStorage.getItem('sat-consent');
+        gtag('consent', 'default', {
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            analytics_storage: satConsent === 'denied' ? 'denied' : 'granted'
+        });
+        gtag('consent', 'default', {
+            analytics_storage: satConsent === 'granted' ? 'granted' : 'denied',
+            region: ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','EL','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB']
+        });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6TWXV8VP2J"></script>
+    <script>
+        gtag('js', new Date());
+        gtag('config', 'G-6TWXV8VP2J');
+    </script>
+</head>
+<body>
+    <div class="standalone-page">
+        <a href="index.html" class="back-link">← Back to Small App Tools</a>
+        <div class="page-intro">
+            <h1>Pomodoro Timer</h1>
+            <p>Stay focused with 25-minute work sessions and automatic breaks — no setup, no sign-up.</p>
+        </div>
+        <div class="tool-root" id="tool-root"></div>
+    </div>
+
+    <script type="module">
+        import { mount } from './assets/js/tools/pomodoro.js';
+        mount(document.getElementById('tool-root'));
+    </script>
+    <script type="module" src="assets/js/consent.js"></script>
+</body>
+</html>

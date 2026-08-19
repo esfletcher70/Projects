@@ -10,6 +10,7 @@ const tools = {
     'image-compression': { load: () => import('./tools/image-compression.js'), label: 'Image Compression' },
     weather: { load: () => import('./tools/weather.js'), label: 'Weather Dashboard' },
     'qr-code': { load: () => import('./tools/qr-code.js'), label: 'QR Code Generator' },
+    pomodoro: { load: () => import('./tools/pomodoro.js'), label: 'Pomodoro Timer' },
 };
 
 let activeCard = null;
