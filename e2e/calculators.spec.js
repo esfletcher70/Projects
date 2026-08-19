@@ -24,7 +24,7 @@ test.describe('Basic calculator', () => {
     await page.getByRole('button', { name: '=' }).click();
     await expect(display).toHaveText('3');
 
-    await page.getByRole('button', { name: 'C' }).click();
+    await page.getByRole('button', { name: 'C', exact: true }).click();
     await expect(display).toHaveText('0');
   });
 });
