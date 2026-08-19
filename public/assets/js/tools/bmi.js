@@ -2,7 +2,7 @@
    Small App Tools BMI Calculator (tool module)
    ============================================ */
 
-import { hideError, qs, requireValid } from '../common.js';
+import { hideError, qs, requireValid, setActiveToggle } from '../common.js';
 
 export function mount(container) {
     container.innerHTML = `
@@ -52,9 +52,7 @@ export function mount(container) {
 
     function setUnit(unit) {
         currentUnit = unit;
-        container.querySelectorAll('[data-unit-toggle] .toggle-btn').forEach((btn) => {
-            btn.classList.toggle('active', btn.dataset.unit === unit);
-        });
+        setActiveToggle(container, '[data-unit-toggle] .toggle-btn', 'unit', unit);
         if (unit === 'metric') {
             weightUnit.textContent = 'kg';
             heightUnit.textContent = 'cm';

@@ -6,11 +6,14 @@ import {
     formatFileSize,
     getFormatFromMime,
     getExtensionFromMime,
-    showSuccess,
     showError,
     hideError,
     hideSuccess,
-    qs
+    qs,
+    setActiveToggle,
+    trackListeners,
+    dateStamp,
+    downloadDataUrl
 } from '../common.js';
 
 export function mount(container) {
@@ -139,10 +142,7 @@ export function mount(container) {
     function handleFormatChange(e) {
         const btn = e.target.closest('[data-format]');
         if (!btn) return;
-        container.querySelectorAll('[data-format-group] .format-btn').forEach((b) => {
-            b.classList.remove('active');
-        });
-        btn.classList.add('active');
+        setActiveToggle(container, '[data-format-group] .format-btn', 'format', btn.dataset.format);
         selectedFormat = btn.dataset.format;
         compressImage();
     }
@@ -186,17 +186,10 @@ export function mount(container) {
     function download() {
         if (!compressedData || !originalFile) return;
 
-        const link = document.createElement('a');
-        link.href = compressedData;
         const originalName = originalFile.name.split('.').slice(0, -1).join('.');
-        const now = new Date();
-        const dateStr = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}`;
         const ext = getExtensionFromMime(selectedFormat);
-        link.download = `${originalName}-Compressed-${dateStr}.${ext}`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        showSuccess('Image downloaded successfully!', container);
+        const filename = `${originalName}-Compressed-${dateStamp()}.${ext}`;
+        downloadDataUrl(compressedData, filename, container, 'Image downloaded successfully!');
     }
 
     function reset() {
@@ -212,18 +205,12 @@ export function mount(container) {
         qualitySlider.value = 80;
         qualityValue.textContent = '80%';
         selectedFormat = 'image/jpeg';
-        container.querySelectorAll('[data-format-group] .format-btn').forEach((b) => {
-            b.classList.toggle('active', b.dataset.format === 'image/jpeg');
-        });
+        setActiveToggle(container, '[data-format-group] .format-btn', 'format', 'image/jpeg');
         hideError(container);
         hideSuccess(container);
     }
 
-    const listeners = [];
-    function add(el, event, fn) {
-        el.addEventListener(event, fn);
-        listeners.push({ el, event, fn });
-    }
+    const { add, cleanup } = trackListeners();
 
     add(uploadZone, 'click', () => fileInput.click());
     add(uploadZone, 'dragover', handleDragOver);
@@ -231,17 +218,11 @@ export function mount(container) {
     add(uploadZone, 'drop', handleDrop);
     add(fileInput, 'change', handleFileSelect);
     add(qualitySlider, 'input', handleQualityChange);
-    const formatGroup = qs(container, '[data-format-group]');
-    formatGroup.addEventListener('click', handleFormatChange);
-    listeners.push({ el: formatGroup, event: 'click', fn: handleFormatChange });
-    const downloadBtn = qs(container, '#downloadBtn');
-    downloadBtn.addEventListener('click', download);
-    listeners.push({ el: downloadBtn, event: 'click', fn: download });
-    const resetBtn = qs(container, '#resetBtn');
-    resetBtn.addEventListener('click', reset);
-    listeners.push({ el: resetBtn, event: 'click', fn: reset });
+    add(qs(container, '[data-format-group]'), 'click', handleFormatChange);
+    add(qs(container, '#downloadBtn'), 'click', download);
+    add(qs(container, '#resetBtn'), 'click', reset);
 
     return function unmount() {
-        listeners.forEach(({ el, event, fn }) => el.removeEventListener(event, fn));
+        cleanup();
     };
 }

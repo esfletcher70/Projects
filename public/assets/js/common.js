@@ -73,3 +73,36 @@ export function getExtensionFromMime(mime) {
 export function qs(container, selector) {
     return container.querySelector(selector);
 }
+
+export function setActiveToggle(container, groupSelector, dataAttr, value) {
+    container.querySelectorAll(groupSelector).forEach((btn) => {
+        btn.classList.toggle('active', btn.dataset[dataAttr] === value);
+    });
+}
+
+export function trackListeners() {
+    const listeners = [];
+    function add(el, event, fn) {
+        el.addEventListener(event, fn);
+        listeners.push({ el, event, fn });
+    }
+    function cleanup() {
+        listeners.forEach(({ el, event, fn }) => el.removeEventListener(event, fn));
+    }
+    return { add, cleanup };
+}
+
+export function dateStamp() {
+    const now = new Date();
+    return `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}`;
+}
+
+export function downloadDataUrl(url, filename, container, message) {
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    if (message) showSuccess(message, container);
+}

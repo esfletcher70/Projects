@@ -3,7 +3,7 @@
    ============================================ */
 
 import qrcode from '../vendor/qrcode.js';
-import { showSuccess, showError, hideError, hideSuccess, qs } from '../common.js';
+import { showError, hideError, hideSuccess, qs, setActiveToggle, trackListeners, dateStamp, downloadDataUrl } from '../common.js';
 
 const CELL_SIZE = 8;
 const MARGIN = 4;
@@ -115,9 +115,7 @@ export function mount(container) {
 
     function setType(type) {
         currentType = type;
-        container.querySelectorAll('[data-type-group] .format-btn').forEach((b) => {
-            b.classList.toggle('active', b.dataset.type === type);
-        });
+        setActiveToggle(container, '[data-type-group] .format-btn', 'type', type);
         textForm.style.display = type === 'text' ? 'grid' : 'none';
         wifiForm.style.display = type === 'wifi' ? 'grid' : 'none';
         hideError(container);
@@ -162,23 +160,10 @@ export function mount(container) {
 
     function download() {
         if (!currentDataUrl) return;
-
-        const link = document.createElement('a');
-        link.href = currentDataUrl;
-        const now = new Date();
-        const dateStr = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}`;
-        link.download = `qr-code-${dateStr}.png`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        showSuccess('QR code downloaded successfully!', container);
+        downloadDataUrl(currentDataUrl, `qr-code-${dateStamp()}.png`, container, 'QR code downloaded successfully!');
     }
 
-    const listeners = [];
-    function add(el, event, fn) {
-        el.addEventListener(event, fn);
-        listeners.push({ el, event, fn });
-    }
+    const { add, cleanup } = trackListeners();
 
     add(typeGroup, 'click', (e) => {
         const btn = e.target.closest('[data-type]');
@@ -192,6 +177,6 @@ export function mount(container) {
     add(downloadBtn, 'click', download);
 
     return function unmount() {
-        listeners.forEach(({ el, event, fn }) => el.removeEventListener(event, fn));
+        cleanup();
     };
 }
