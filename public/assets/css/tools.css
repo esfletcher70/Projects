@@ -341,6 +341,36 @@
     color: #742a2a;
 }
 
+/* Art Piece of the Day */
+.art-image {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+.art-artist,
+.art-date,
+.art-credit {
+    color: var(--text-muted);
+    font-size: 0.9em;
+    margin-top: 4px;
+}
+
+.art-link {
+    display: inline-block;
+    margin-top: 12px;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.art-link:hover {
+    text-decoration: underline;
+}
+
 /* Pomodoro Timer */
 .timer-display {
     font-size: 3em;

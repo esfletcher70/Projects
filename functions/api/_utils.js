@@ -7,10 +7,11 @@ export function errorResponse(message, status = 500) {
     });
 }
 
-export async function fetchUpstream(url, timeoutMs = DEFAULT_TIMEOUT_MS) {
+export async function fetchUpstream(url, timeoutMs = DEFAULT_TIMEOUT_MS, headers = {}) {
     const response = await fetch(url, {
         cf: { cacheTtl: 300 },
         signal: AbortSignal.timeout(timeoutMs),
+        headers,
     });
     const body = await response.text();
     return { status: response.status, body };
