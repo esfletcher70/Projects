@@ -8,6 +8,7 @@ const TOOLS = [
   { name: 'Retirement Calculator', href: 'Calculator-Retirement.html' },
   { name: 'Image Compression', href: 'Image-Compression.html' },
   { name: 'Weather Dashboard', href: 'Weather.html' },
+  { name: 'QR Code Generator', href: 'QR-Code.html' },
 ];
 
 test.describe('Landing page navigation', () => {
@@ -22,7 +23,7 @@ test.describe('Landing page navigation', () => {
     for (const tool of TOOLS) {
       const card = page.locator('.card', { hasText: tool.name });
       await expect(card).toBeVisible();
-      const button = card.getByRole('button', { name: /Open|Calculate|Plan|Compress|Check/ });
+      const button = card.getByRole('button', { name: /Open|Calculate|Plan|Compress|Check|Generate/ });
       await expect(button).toBeVisible();
     }
   });

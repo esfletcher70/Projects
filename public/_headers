@@ -1,0 +1,9 @@
+# Images and the favicon change rarely, so they're safe to cache longer than
+# Cloudflare Pages' default (4h). CSS/JS are left at the default since they're
+# actively edited and aren't fingerprinted, so a longer cache risks serving
+# stale/broken code to returning visitors after a deploy.
+/assets/images/*
+  Cache-Control: public, max-age=604800, must-revalidate
+
+/favicon.svg
+  Cache-Control: public, max-age=604800, must-revalidate

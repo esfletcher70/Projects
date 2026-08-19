@@ -1,3 +1,5 @@
+import { errorResponse, fetchUpstream } from "./_utils.js";
+
 const OPENWEATHER_BASE = "https://api.openweathermap.org";
 const UNITS = "imperial";
 
@@ -6,10 +8,7 @@ async function proxyRequest(path, query, env) {
   params.set("appid", env.OPENWEATHER_API_KEY);
   params.set("units", UNITS);
 
-  const url = `${OPENWEATHER_BASE}${path}?${params.toString()}`;
-  const response = await fetch(url, { cf: { cacheTtl: 300 } });
-  const body = await response.text();
-  return { status: response.status, body };
+  return fetchUpstream(`${OPENWEATHER_BASE}${path}?${params.toString()}`);
 }
 
 function buildDailyForecast(forecastList, tzOffset) {
@@ -46,39 +45,47 @@ export async function onRequestGet(context) {
   const lon = searchParams.get("lon");
 
   if (!lat || !lon) {
-    return new Response(JSON.stringify({ message: "lat and lon are required" }), {
-      status: 400,
-      headers: { "Content-Type": "application/json" },
-    });
+    return errorResponse("lat and lon are required", 400);
   }
 
-  const query = { lat, lon };
-  const current = await proxyRequest("/data/2.5/weather", query, context.env);
-  if (current.status !== 200) {
-    return new Response(current.body, { status: current.status, headers: { "Content-Type": "application/json" } });
+  if (!context.env.OPENWEATHER_API_KEY) {
+    return errorResponse("Server is misconfigured: missing OPENWEATHER_API_KEY", 500);
   }
 
-  const forecast = await proxyRequest("/data/2.5/forecast", query, context.env);
-  if (forecast.status !== 200) {
-    return new Response(forecast.body, { status: forecast.status, headers: { "Content-Type": "application/json" } });
+  try {
+    const query = { lat, lon };
+    const current = await proxyRequest("/data/2.5/weather", query, context.env);
+    if (current.status !== 200) {
+      return new Response(current.body, { status: current.status, headers: { "Content-Type": "application/json" } });
+    }
+
+    const forecast = await proxyRequest("/data/2.5/forecast", query, context.env);
+    if (forecast.status !== 200) {
+      return new Response(forecast.body, { status: forecast.status, headers: { "Content-Type": "application/json" } });
+    }
+
+    const currentData = JSON.parse(current.body);
+    const forecastData = JSON.parse(forecast.body);
+    const tzOffset = forecastData.city?.timezone || 0;
+
+    const combined = {
+      current: {
+        temp: currentData.main?.temp,
+        feels_like: currentData.main?.feels_like,
+        humidity: currentData.main?.humidity,
+        sunrise: currentData.sys?.sunrise,
+        sunset: currentData.sys?.sunset,
+        weather: currentData.weather || [],
+      },
+      daily: buildDailyForecast(forecastData.list || [], tzOffset),
+      timezone_offset: tzOffset,
+    };
+
+    return Response.json(combined, { headers: { "Cache-Control": "no-store" } });
+  } catch (err) {
+    if (err.name === "TimeoutError" || err.name === "AbortError") {
+      return errorResponse("Weather service timed out. Please try again.", 504);
+    }
+    return errorResponse("Unable to fetch weather data right now.", 502);
   }
-
-  const currentData = JSON.parse(current.body);
-  const forecastData = JSON.parse(forecast.body);
-  const tzOffset = forecastData.city?.timezone || 0;
-
-  const combined = {
-    current: {
-      temp: currentData.main?.temp,
-      feels_like: currentData.main?.feels_like,
-      humidity: currentData.main?.humidity,
-      sunrise: currentData.sys?.sunrise,
-      sunset: currentData.sys?.sunset,
-      weather: currentData.weather || [],
-    },
-    daily: buildDailyForecast(forecastData.list || [], tzOffset),
-    timezone_offset: tzOffset,
-  };
-
-  return Response.json(combined, { headers: { "Cache-Control": "no-store" } });
 }

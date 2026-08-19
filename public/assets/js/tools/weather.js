@@ -152,7 +152,7 @@ export function mount(container, options = {}) {
                 </div>
                 <div style="display: flex; align-items: center; gap: 12px;">
                     <div class="temp" id="currentTemp">${Math.round(current.temp)}°F</div>
-                    ${icon ? `<img src="${getWeatherIconUrl(icon)}" alt="${description}">` : ''}
+                    ${icon ? `<img src="${getWeatherIconUrl(icon)}" alt="${description}" width="64" height="64">` : ''}
                 </div>
             </div>
             <div class="weather-details">
@@ -181,7 +181,7 @@ export function mount(container, options = {}) {
                     return `
                         <div class="day">
                             <div class="label">${formatLocalTime(day.dt, weather.timezone_offset, { weekday: 'short' })}</div>
-                            ${dayIcon ? `<img src="${getWeatherIconUrl(dayIcon)}" alt="${dayDescription}">` : ''}
+                            ${dayIcon ? `<img src="${getWeatherIconUrl(dayIcon)}" alt="${dayDescription}" width="48" height="48">` : ''}
                             <div class="temp">${Math.round(day.temp.max)}° / ${Math.round(day.temp.min)}°</div>
                             <div class="desc">${dayDescription}</div>
                         </div>

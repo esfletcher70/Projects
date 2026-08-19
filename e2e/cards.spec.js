@@ -11,7 +11,7 @@ function getCard(page, name) {
 
 function openCard(page, name) {
     const card = getCard(page, name);
-    return card.getByRole('button', { name: /Open|Calculate|Plan|Compress|Check/ }).click();
+    return card.getByRole('button', { name: /Open|Calculate|Plan|Compress|Check|Generate/ }).click();
 }
 
 function closeCard(page, name) {
@@ -89,6 +89,17 @@ test.describe('Card-embedded tools on the landing page', () => {
         await expect(card.locator('#compressedImage')).toHaveAttribute('src', /^data:image/);
         await expect(card.locator('#statsGrid')).toBeVisible();
         await expect(card.locator('#downloadBtn')).toBeVisible();
+    });
+
+    test('QR code generator works inside its card', async ({ page }) => {
+        await page.goto('/');
+        await openCard(page, 'QR Code Generator');
+
+        const card = getCard(page, 'QR Code Generator');
+        await card.locator('#qrText').fill('https://smallapp.tools');
+
+        await expect(card.locator('[data-preview-img]')).toHaveAttribute('src', /^data:image\/png/);
+        await expect(card.locator('[data-download]')).toBeVisible();
     });
 
     test('weather dashboard works inside its card with mocked API', async ({ page }) => {

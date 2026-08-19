@@ -748,6 +748,53 @@
     color: var(--success-text);
 }
 
+/* QR Code Generator */
+.qr-preview {
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+    background: var(--light);
+    border: 2px solid var(--border-light);
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.qr-preview img {
+    max-width: 100%;
+    height: auto;
+    image-rendering: pixelated;
+}
+
+.tool-form select {
+    padding: 10px;
+    border: 2px solid var(--border-light);
+    border-radius: 8px;
+    font-size: 1em;
+    color: var(--text-dark);
+    background: var(--light);
+}
+
+.tool-form select:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-body);
+    font-size: 0.9em;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.checkbox-row input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .tool-form.compact-2 {

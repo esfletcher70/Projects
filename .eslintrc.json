@@ -1,5 +1,6 @@
 {
   "root": true,
+  "ignorePatterns": ["public/assets/js/vendor/**"],
   "env": {
     "browser": true,
     "es2021": true
@@ -9,7 +10,7 @@
     "sourceType": "module"
   },
   "rules": {
-    "no-unused-vars": "warn",
+    "no-unused-vars": "error",
     "no-undef": "error"
   },
   "overrides": [

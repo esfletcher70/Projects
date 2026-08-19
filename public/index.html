@@ -20,8 +20,8 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Small App Tools - Free Online Calculators, Weather & Image Compressor</title>
-    <meta name="description" content="Free online tools: weather dashboard, calculator, BMI calculator, mortgage calculator, retirement calculator, and image compressor. No sign-up, no tracking, works on any device.">
+    <title>Small App Tools - Free Online Calculators, Weather, Image Compressor & QR Code Generator</title>
+    <meta name="description" content="Free online tools: weather dashboard, calculator, BMI calculator, mortgage calculator, retirement calculator, image compressor, and QR code generator. No sign-up, no tracking, works on any device.">
     <link rel="canonical" href="https://smallapp.tools/">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
@@ -51,33 +51,20 @@
         { "@type": "WebApplication", "name": "BMI Calculator", "url": "https://smallapp.tools/Calculator-BMI.html", "applicationCategory": "HealthApplication" },
         { "@type": "WebApplication", "name": "Mortgage Calculator", "url": "https://smallapp.tools/Calculator-Mortgage.html", "applicationCategory": "FinanceApplication" },
         { "@type": "WebApplication", "name": "Retirement Calculator", "url": "https://smallapp.tools/Calculator-Retirement.html", "applicationCategory": "FinanceApplication" },
-        { "@type": "WebApplication", "name": "Image Compression", "url": "https://smallapp.tools/Image-Compression.html", "applicationCategory": "MultimediaApplication" }
+        { "@type": "WebApplication", "name": "Image Compression", "url": "https://smallapp.tools/Image-Compression.html", "applicationCategory": "MultimediaApplication" },
+        { "@type": "WebApplication", "name": "QR Code Generator", "url": "https://smallapp.tools/QR-Code.html", "applicationCategory": "UtilitiesApplication" }
       ]
     }
     </script>
 
+    <link rel="stylesheet" href="assets/css/theme.css">
     <link rel="stylesheet" href="assets/css/tools.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* base reset (*) and shared design tokens (--primary, --dark, etc.)
+           come from theme.css; only homepage-specific tokens are defined here. */
         :root {
-            --primary: #667eea;
-            --secondary: #764ba2;
-            --accent: #f093fb;
-            --dark: #1e1e1e;
-            --light: #ffffff;
-            --gray-light: #f8f9fa;
-            --gray-dark: #2d2d2d;
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             --shadow-hover: 0 20px 50px rgba(102, 126, 234, 0.3);
-            --text-muted: #a0aec0;
-            --border-light: #e2e8f0;
-            --text-body: #666;
-            --text-dark: #333;
         }
 
         body {
@@ -455,6 +442,19 @@
                         <div class="card-summary">
                             <p>Reduce image file sizes while maintaining quality. Perfect for faster uploads and web optimization.</p>
                             <button class="card-button" data-action="open">Compress Images</button>
+                        </div>
+                        <div class="card-tool"></div>
+                    </div>
+                </div>
+
+                <!-- QR Code Generator Card -->
+                <div class="card" data-tool="qr-code">
+                    <div class="card-icon">🔳</div>
+                    <div class="card-content">
+                        <h2><a href="QR-Code.html">QR Code Generator</a></h2>
+                        <div class="card-summary">
+                            <p>Create scannable QR codes for URLs, text, and Wi-Fi networks. Generate and download instantly in your browser.</p>
+                            <button class="card-button" data-action="open">Generate QR Code</button>
                         </div>
                         <div class="card-tool"></div>
                     </div>

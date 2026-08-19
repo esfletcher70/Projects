@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('consent', 'default', {
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            analytics_storage: localStorage.getItem('sat-consent') === 'granted' ? 'granted' : 'denied'
+        });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6TWXV8VP2J"></script>
+    <script>
+        gtag('js', new Date());
+        gtag('config', 'G-6TWXV8VP2J');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator - Free Online QR Code Maker | Small App Tools</title>
+    <meta name="description" content="Free online QR code generator. Create scannable QR codes for URLs, text, and Wi-Fi networks right in your browser, no upload to a server required.">
+    <link rel="canonical" href="https://smallapp.tools/QR-Code.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="QR Code Generator - Small App Tools">
+    <meta property="og:description" content="Free online QR code generator. Create scannable QR codes for URLs, text, and Wi-Fi networks right in your browser.">
+    <meta property="og:url" content="https://smallapp.tools/QR-Code.html">
+    <meta property="og:site_name" content="Small App Tools">
+    <meta property="og:image" content="https://smallapp.tools/assets/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="QR Code Generator - Small App Tools">
+    <meta name="twitter:description" content="Free online QR code generator. Create scannable QR codes for URLs, text, and Wi-Fi networks right in your browser.">
+    <meta name="twitter:image" content="https://smallapp.tools/assets/images/og-image.jpg">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "QR Code Generator",
+      "url": "https://smallapp.tools/QR-Code.html",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "isPartOf": { "@type": "WebSite", "name": "Small App Tools", "url": "https://smallapp.tools/" }
+    }
+    </script>
+
+    <link rel="stylesheet" href="assets/css/theme.css">
+    <link rel="stylesheet" href="assets/css/tools.css">
+</head>
+<body>
+    <div class="standalone-page">
+        <a href="index.html" class="back-link">← Back to Small App Tools</a>
+        <div class="page-intro">
+            <h1>QR Code Generator</h1>
+            <p>Create scannable QR codes for URLs, text, and Wi-Fi networks, right in your browser.</p>
+        </div>
+        <div class="tool-root" id="tool-root"></div>
+    </div>
+
+    <script type="module">
+        import { mount } from './assets/js/tools/qr-code.js';
+        mount(document.getElementById('tool-root'));
+    </script>
+    <script type="module" src="assets/js/consent.js"></script>
+</body>
+</html>
