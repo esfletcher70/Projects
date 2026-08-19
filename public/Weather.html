@@ -1,23 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('consent', 'default', {
-            ad_storage: 'denied',
-            ad_user_data: 'denied',
-            ad_personalization: 'denied',
-            analytics_storage: localStorage.getItem('sat-consent') === 'granted' ? 'granted' : 'denied'
-        });
-    </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6TWXV8VP2J"></script>
-    <script>
-        gtag('js', new Date());
-        gtag('config', 'G-6TWXV8VP2J');
-    </script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard - Free Online Weather Forecast | Small App Tools</title>
@@ -53,6 +36,23 @@
 
     <link rel="stylesheet" href="assets/css/theme.css">
     <link rel="stylesheet" href="assets/css/tools.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('consent', 'default', {
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            analytics_storage: localStorage.getItem('sat-consent') === 'granted' ? 'granted' : 'denied'
+        });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6TWXV8VP2J"></script>
+    <script>
+        gtag('js', new Date());
+        gtag('config', 'G-6TWXV8VP2J');
+    </script>
 </head>
 <body>
     <div class="standalone-page">

@@ -4,8 +4,7 @@
 
 import { hideError, qs, requireValid } from '../common.js';
 
-export function mount(container, options = {}) {
-    const mode = options.mode || 'card';
+export function mount(container) {
     container.innerHTML = `
         <div id="error" class="error"></div>
         <div class="tool-section">
@@ -136,10 +135,6 @@ export function mount(container, options = {}) {
     heightInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') calculateBMI();
     });
-
-    if (mode === 'standalone') {
-        // Embed/share modal would be wired here if the standalone page needs it.
-    }
 
     return function unmount() {
         container.removeEventListener('click', onClick);

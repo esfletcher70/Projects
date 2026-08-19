@@ -44,25 +44,6 @@ export function hideSuccess(container = document) {
     successDiv.classList.remove('show');
 }
 
-export function copyCode(elementId, button) {
-    const element = document.getElementById(elementId);
-    if (!element || !button) return;
-    const text = element.textContent;
-
-    navigator.clipboard.writeText(text).then(() => {
-        const originalText = button.textContent;
-        button.textContent = 'Copied!';
-        button.classList.add('copied');
-
-        setTimeout(() => {
-            button.textContent = originalText;
-            button.classList.remove('copied');
-        }, 2000);
-    }).catch(() => {
-        showError('Failed to copy. Please try again.');
-    });
-}
-
 export function formatFileSize(bytes) {
     if (bytes === 0) return '0 Bytes';
     const k = 1024;
@@ -91,8 +72,4 @@ export function getExtensionFromMime(mime) {
 
 export function qs(container, selector) {
     return container.querySelector(selector);
-}
-
-export function qsa(container, selector) {
-    return container.querySelectorAll(selector);
 }

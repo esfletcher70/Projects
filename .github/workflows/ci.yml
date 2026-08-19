@@ -5,6 +5,10 @@ on:
     branches: [main]
   pull_request:
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint:
     name: Lint
@@ -72,7 +76,12 @@ jobs:
           key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
+        run: |
+          for i in 1 2 3; do
+            timeout 180 npx playwright install --with-deps chromium && exit 0
+            echo "Attempt $i failed or timed out, retrying..."
+          done
+          exit 1
 
       - name: Run end-to-end tests
         run: npm run test:e2e
