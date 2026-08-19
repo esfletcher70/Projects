@@ -336,11 +336,16 @@
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
+        var satConsent = localStorage.getItem('sat-consent');
         gtag('consent', 'default', {
             ad_storage: 'denied',
             ad_user_data: 'denied',
             ad_personalization: 'denied',
-            analytics_storage: localStorage.getItem('sat-consent') === 'granted' ? 'granted' : 'denied'
+            analytics_storage: satConsent === 'denied' ? 'denied' : 'granted'
+        });
+        gtag('consent', 'default', {
+            analytics_storage: satConsent === 'granted' ? 'granted' : 'denied',
+            region: ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','EL','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB']
         });
     </script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6TWXV8VP2J"></script>
