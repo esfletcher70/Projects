@@ -20,13 +20,20 @@ function buildSearchUrl(page) {
   return `${ARTIC_SEARCH_URL}?${params.toString()}`;
 }
 
+export async function fetchTotal(ARTIC_HEADERS) {
+  // Cache the count at the edge for an hour — it barely changes and this
+  // halves upstream calls (otherwise every request pays for two round-trips).
+  const result = await fetchUpstream(buildSearchUrl(1), undefined, ARTIC_HEADERS, 3600);
+  if (result.status !== 200) return null;
+  return JSON.parse(result.body)?.pagination?.total || 0;
+}
+
 export async function onRequestGet() {
   try {
-    const countResult = await fetchUpstream(buildSearchUrl(1), undefined, ARTIC_HEADERS);
-    if (countResult.status !== 200) {
+    const total = await fetchTotal(ARTIC_HEADERS);
+    if (!total) {
       return errorResponse("Unable to reach the Art Institute of Chicago right now.", 502);
     }
-    const total = JSON.parse(countResult.body)?.pagination?.total || 0;
     if (total < 1) {
       return errorResponse("No artwork is available right now.", 502);
     }

@@ -1,17 +1,18 @@
 import { errorResponse, fetchUpstream } from "../_utils.js";
 
 const OPENWEATHER_BASE = "https://api.openweathermap.org";
+const MAX_Q_LENGTH = 100;
 
 export async function onRequestGet(context) {
   const { searchParams } = new URL(context.request.url);
   const q = searchParams.get("q");
 
-  if (!q) {
-    return errorResponse("q is required", 400);
+  if (!q || q.trim().length === 0 || q.length > MAX_Q_LENGTH) {
+    return errorResponse("q is required (max 100 characters)", 400);
   }
 
   if (!context.env.OPENWEATHER_API_KEY) {
-    return errorResponse("Server is misconfigured: missing OPENWEATHER_API_KEY", 500);
+    return errorResponse("Server is misconfigured.", 500);
   }
 
   const params = new URLSearchParams({ q, appid: context.env.OPENWEATHER_API_KEY });

@@ -27,6 +27,12 @@ export function mount(container) {
     }
 
     function renderArtwork(art) {
+        // image_id and id come from the API; only allow plain identifiers
+        // into the URL template so nothing can break out of it.
+        if (!/^[A-Za-z0-9-]+$/.test(String(art.image_id ?? '')) || !/^\d+$/.test(String(art.id ?? ''))) {
+            showError('Received invalid artwork data.', container);
+            return;
+        }
         const imageUrl = `https://www.artic.edu/iiif/2/${art.image_id}/full/843,/0/default.jpg`;
         const artworkUrl = `https://www.artic.edu/artworks/${art.id}`;
 
