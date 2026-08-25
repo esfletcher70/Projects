@@ -3,18 +3,18 @@
    Mounts a tool module into #tool-root on its
    standalone page. Keeps inline scripts out of
    the HTML so the CSP can stay strict.
-   Usage: <script type="module" src="assets/js/page-loader.js"
-           data-tool="bmi" data-mode="standalone"></script>
+   Usage:
+     <script type="module" src="assets/js/page-loader.js?tool=bmi&mode=standalone"></script>
    ============================================ */
 
 import * as tools from './tools/index.js';
 
-const script = document.currentScript;
-const toolName = script.dataset.tool;
-const mode = script.dataset.mode;
+const params = new URL(import.meta.url).searchParams;
+const toolName = params.get('tool');
+const mode = params.get('mode');
 
-const tool = tools[toolName];
-if (tool) {
+const mount = tools[toolName];
+if (mount) {
     const options = mode ? { mode } : undefined;
-    tool.mount(document.getElementById('tool-root'), options);
+    mount(document.getElementById('tool-root'), options);
 }
