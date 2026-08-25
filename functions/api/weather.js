@@ -54,12 +54,14 @@ export async function onRequestGet(context) {
 
   try {
     const query = { lat, lon };
-    const current = await proxyRequest("/data/2.5/weather", query, context.env);
+    // Fetch current conditions and forecast in parallel to halve latency.
+    const [current, forecast] = await Promise.all([
+      proxyRequest("/data/2.5/weather", query, context.env),
+      proxyRequest("/data/2.5/forecast", query, context.env),
+    ]);
     if (current.status !== 200) {
       return new Response(current.body, { status: current.status, headers: { "Content-Type": "application/json" } });
     }
-
-    const forecast = await proxyRequest("/data/2.5/forecast", query, context.env);
     if (forecast.status !== 200) {
       return new Response(forecast.body, { status: forecast.status, headers: { "Content-Type": "application/json" } });
     }

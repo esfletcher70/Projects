@@ -31,9 +31,9 @@ export function errorResponse(message, status = 500) {
     });
 }
 
-export async function fetchUpstream(url, timeoutMs = DEFAULT_TIMEOUT_MS, headers = {}) {
+export async function fetchUpstream(url, timeoutMs = DEFAULT_TIMEOUT_MS, headers = {}, cacheTtl = 1800) {
     const response = await fetch(url, {
-        cf: { cacheTtl: 300 },
+        cf: { cacheTtl },
         signal: AbortSignal.timeout(timeoutMs),
         headers,
     });
