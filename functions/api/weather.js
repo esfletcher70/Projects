@@ -1,4 +1,4 @@
-import { errorResponse, fetchUpstream } from "./_utils.js";
+import { errorResponse, fetchUpstream, isValidLatLon } from "./_utils.js";
 
 const OPENWEATHER_BASE = "https://api.openweathermap.org";
 const UNITS = "imperial";
@@ -44,12 +44,12 @@ export async function onRequestGet(context) {
   const lat = searchParams.get("lat");
   const lon = searchParams.get("lon");
 
-  if (!lat || !lon) {
-    return errorResponse("lat and lon are required", 400);
+  if (!lat || !lon || !isValidLatLon(lat, lon)) {
+    return errorResponse("lat and lon must be valid coordinates", 400);
   }
 
   if (!context.env.OPENWEATHER_API_KEY) {
-    return errorResponse("Server is misconfigured: missing OPENWEATHER_API_KEY", 500);
+    return errorResponse("Server is misconfigured.", 500);
   }
 
   try {

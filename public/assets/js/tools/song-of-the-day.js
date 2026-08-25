@@ -10,6 +10,13 @@ function escapeHtml(str) {
     return div.innerHTML;
 }
 
+// Only allow http(s) URLs from the API into src/href attributes, and
+// escape them so a crafted value can't break out of the attribute.
+function safeUrl(url) {
+    if (typeof url !== 'string' || !/^https:\/\//i.test(url)) return '';
+    return escapeHtml(url);
+}
+
 export function mount(container) {
     container.innerHTML = `
         <div class="tool-alert error"></div>
@@ -29,15 +36,15 @@ export function mount(container) {
 
     function renderSong(song) {
         content.innerHTML = `
-            ${song.album_image ? `<img class="song-image" src="${song.album_image}" alt="${escapeHtml(song.album_name || 'Album art')}" loading="lazy" referrerpolicy="no-referrer">` : ''}
+            ${song.album_image && safeUrl(song.album_image) ? `<img class="song-image" src="${safeUrl(song.album_image)}" alt="${escapeHtml(song.album_name || 'Album art')}" loading="lazy" referrerpolicy="no-referrer">` : ''}
             <div class="result-block">
                 <div class="result-label">Song of the Day</div>
                 <div class="result-value song-title">${escapeHtml(song.name || 'Untitled')}</div>
                 ${song.artist_name ? `<div class="song-artist">${escapeHtml(song.artist_name)}</div>` : ''}
                 ${song.album_name ? `<div class="song-album">${escapeHtml(song.album_name)}</div>` : ''}
-                ${song.audio ? `<audio class="song-audio" controls src="${song.audio}"></audio>` : ''}
-                ${song.license_ccurl ? `<a class="song-link" href="${song.license_ccurl}" target="_blank" rel="noopener noreferrer">License & credit →</a>` : ''}
-                ${song.shareurl ? `<a class="song-link" href="${song.shareurl}" target="_blank" rel="noopener noreferrer">View on Jamendo →</a>` : ''}
+                ${safeUrl(song.audio) ? `<audio class="song-audio" controls src="${safeUrl(song.audio)}"></audio>` : ''}
+                ${safeUrl(song.license_ccurl) ? `<a class="song-link" href="${safeUrl(song.license_ccurl)}" target="_blank" rel="noopener noreferrer">License & credit →</a>` : ''}
+                ${safeUrl(song.shareurl) ? `<a class="song-link" href="${safeUrl(song.shareurl)}" target="_blank" rel="noopener noreferrer">View on Jamendo →</a>` : ''}
             </div>
         `;
         audioEl = content.querySelector('.song-audio');
